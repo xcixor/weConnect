@@ -1,0 +1,13 @@
+body{
+    background-color: #191919;       
+}
+.container{
+    background-color: #404040;         
+    height: 100vh;
+    color: white;
+    padding-top: 5px !important;
+    padding: 20px;
+}
+.row{
+    margin-bottom: 0 !important;
+}
