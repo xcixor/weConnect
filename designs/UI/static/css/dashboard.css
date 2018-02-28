@@ -1,0 +1,11 @@
+.navigation{
+    margin-bottom: 0 !important;
+}
+.content{
+    padding: 50px;
+    background-color: whitesmoke;
+}
+.fab-btn{
+    margin: 5px;
+    position: static;
+}
