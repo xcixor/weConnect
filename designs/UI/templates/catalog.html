@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel="stylesheet" href="../static/css/catalog.css">
+    <link rel="stylesheet" href="../static/css/style.css">  
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Catalog</title>
 </head>
@@ -32,15 +33,18 @@
     <!-- end nav -->
 
     <!-- content -->
-    <div class="row">
+    <div class="row panes">
         <div class="col s12">
             <ul class="tabs">
-            <li class="tab col s3"><a class="active" href="#all">All</a></li>
-            <li class="tab col s3"><a href="#category">Categories</a></li>
-            <li class="tab col s3"><a href="#location">Locations</a></li>
+            <div class="col m3 s3"></div>
+            <li class="tab col m2 s12"><a class="active" href="#all">All</a></li>
+            <li class="tab col m2 s12"><a href="#category">Categories</a></li>
+            <li class="tab col m2 s12"><a href="#location">Locations</a></li>
+            <div class="col m3 s3"></div>            
             </ul>
         </div>
         <div id="all" class="col s12">
+            <!-- mocks of business data -->
             <div class="row all">
                 <h3>View all our business listings</h3>                
                 <div class="col s12 m6">
@@ -50,7 +54,7 @@
                         <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
                     </div>
                     <div class="card-action">
-                        <a href="#">View more</a>
+                        <a class="modal-trigger modal-close" href="#business-details">View More</a>
                     </div>
                     </div>
                 </div>
@@ -61,7 +65,7 @@
                         <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
                     </div>
                     <div class="card-action">
-                        <a href="#">View more</a>
+                        <a class="modal-trigger modal-close" href="#business-details">View More</a>                        
                     </div>
                     </div>
                 </div>
@@ -78,7 +82,7 @@
                             <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
                         </div>
                         <div class="card-action">
-                            <a href="#">View more</a>
+                            <a class="modal-trigger modal-close" href="#business-details">View More</a>                        
                         </div>
                         </div>
                     </div>
@@ -89,7 +93,7 @@
                             <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
                         </div>
                         <div class="card-action">
-                            <a href="#">View more</a>
+                            <a class="modal-trigger modal-close" href="#business-details">View More</a>                        
                         </div>
                         </div>
                     </div>
@@ -103,18 +107,7 @@
                                 <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
                             </div>
                             <div class="card-action">
-                                <a href="#">View more</a>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="col s12 m6">
-                            <div class="card">
-                            <div class="card-content">
-                                <span class="card-title">Kirimi's Barber</span>
-                                <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">View more</a>
+                                <a class="modal-trigger modal-close" href="#business-details">View More</a>                        
                             </div>
                             </div>
                         </div>
@@ -131,18 +124,7 @@
                                 <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
                             </div>
                             <div class="card-action">
-                                <a href="#">View more</a>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="col s12 m6">
-                            <div class="card">
-                            <div class="card-content">
-                                <span class="card-title">Wanjigi's Bakery</span>
-                                <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">View more</a>
+                                <a class="modal-trigger modal-close" href="#business-details">View More</a>                        
                             </div>
                             </div>
                         </div>
@@ -156,7 +138,7 @@
                                     <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
                                 </div>
                                 <div class="card-action">
-                                    <a href="#">View more</a>
+                                    <a class="modal-trigger modal-close" href="#business-details">View More</a>                        
                                 </div>
                                 </div>
                             </div>
@@ -167,16 +149,59 @@
                                     <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
                                 </div>
                                 <div class="card-action">
-                                    <a href="#">View more</a>
+                                    <a class="modal-trigger modal-close" href="#business-details">View More</a>                        
                                 </div>
                                 </div>
                             </div>
                         </div>
         </div>
+        <!-- end mocks -->
     </div>
+
+    <!-- modal for more business details -->
+    <div id="business-details" class="modal">
+            <div class="modal-content">
+                <h5>About</h5>
+                <p>Donec rutrum congue leo eget malesuada. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor lectus nibh. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.</p>
+                <h5>Location</h5>
+                <p>Somewhere</p>
+                <h5>Services Offerd</h5>
+                <ul>
+                    <li>service one</li>
+                    <li>service two</li>
+                    <li>service three</li>
+                    <li>service four</li>
+                    <li>service five</li>
+                </ul>
+                <h5>Contacts</h5>
+                <p>Tel: 1233555</p>
+                <p>Cel: 1233555</p>
+                <h6>Address</h6>
+                <p>P.O.Box</p>   
+                <p>1234</p>     
+                <p>Somewhere</p>        
+                <form>        
+                <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="contact" class="materialize-textarea"></textarea>
+                                <label for="contact">Say Something about this Business</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>                
+                            <button type="submit" name="action" class="modal-action waves-effect waves-green btn-flat left">
+                                Post Comment
+                            </button>
+                        </div>
+                    </form>            
+                </div>
+            </div>
+        </div>
+        <!-- end modal -->
 
     <!-- scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>       
+    <script src="../static/js/materialize_init.js"></script>    
 </body>
 </html>
