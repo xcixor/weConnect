@@ -9,3 +9,6 @@
     margin: 5px;
     position: static;
 }
+.nav-wrapper {
+    background-color: #282828 !important;
+  }
