@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../static/css/dashboard.css">
     <link rel="stylesheet" href="../static/css/style.css">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <title>Dashboard</title>
 </head>
 <body>
 <div class="row navigation">
@@ -45,11 +45,50 @@
 <div class="row content">
     <!-- add business floating button -->
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red  modal-trigger modal-close" href="#create-event">
+        <a class="btn-floating btn-large red  modal-trigger modal-close" href="#create-business">
             <i class="large material-icons">add</i>
         </a>
     </div>
     <!-- end button -->
+    <!-- data collection modal -->
+    <div id="create-business" class="modal">
+        <div class="modal-content">
+            <h4>Create Business</h4>
+            <div class="row">
+                <form method="" action="#" class="col s12">
+                    <div class="row">
+                    <div class="input-field col s6">
+                        <input id="name" type="text" class="validate" name="Name">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="category" type="text" class="validate" name="Category">
+                        <label for="category">Category</label>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="description" type="text" class="validate" name="Description">
+                            <label for="description">Description</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="location" type="text" class="validate" name="Location">
+                            <label for="location">Location</label>
+                        </div>
+                    </div>
+            </div>                    
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>                
+            <button type="submit" name="action" class="modal-action waves-effect waves-green btn-flat left">
+                Save
+            </button>
+        </div>
+    </form>            
+    </div>
+    <!-- end modal -->
 </div>
 
     <!-- scripts -->
