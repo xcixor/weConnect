@@ -13,7 +13,7 @@
 
 # Deployment
     This app is hosted at github pages and you can access it
-    via this [link](https://xcixor.github.io/weConnect)
+    via this [link](https://xcixor.github.io/weConnect/)
 
 # Built with
     Materialize framework 
