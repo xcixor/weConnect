@@ -10,7 +10,7 @@
     Ensure you type the full path to the index page (/designs/UI/templates)
 
 # Mockups
-    coming soon
+    * [Uml](/designs/uml.png)
 
 # Deployment
     This app is hosted at github pages and you can access it
