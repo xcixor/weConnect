@@ -10,16 +10,17 @@
     Ensure you type the full path to the index page (/designs/UI/templates)
 
 # Mockups
-    coming soon
+[Uml](/designs/uml.png)
 
 # Deployment
-    This app is hosted at github pages and you can access it
-    via this [link](https://xcixor.github.io/weConnect/)
+This app is hosted at github pages and you can access it
+via this [link](https://xcixor.github.io/weConnect/)
 
 # Built with
     Materialize framework 
 
 # Contributing
+    This app was peer reviewed by Patrick Migot and Eric Mwenda
 
 # Versioning
     weConnect 1.0
