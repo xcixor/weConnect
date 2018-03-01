@@ -1,10 +1,6 @@
 body{
     background-color: #191919;       
-<<<<<<< HEAD:edit_business_profile.css
     background-image: url('comp2.jpeg');
-=======
-    background-image: url('/designs/UI/static/images/comp2.jpeg');
->>>>>>> dev-ui:designs/UI/static/css/edit_business_profile.css
     background-size: cover;
     background-position: left;
     background-repeat: no-repeat;
