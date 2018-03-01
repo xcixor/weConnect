@@ -1,0 +1,25 @@
+.panes{
+    /* background-color: whitesmoke; */
+    color: black;
+}
+.all {
+    margin-top: 40px;
+}
+#category{
+    margin-top: 40px;
+}
+#location{
+    margin-top: 40px;
+}
+#all{    
+    margin-top: 40px;
+}
+body{
+    background-color: whitesmoke;
+}
+h3{
+    padding-left: 10px;
+}
+h4{
+    padding-left: 10px;
+}
