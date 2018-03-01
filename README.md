@@ -6,7 +6,8 @@
 
 # Installing
     Clone the project to your local machine
-    Configure your server and host on any web browser
+    Configure your server to host on any web browser
+    Ensure you type the full path to the index page (/designs/UI/templates)
 
 # Mockups
     coming soon
