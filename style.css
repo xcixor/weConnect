@@ -26,3 +26,6 @@ color: #C00000;
 .input-field .prefix {
 color: #67BCDB;
 }
+.nav-wrapper {
+    background-color: #282828 !important;
+  }
