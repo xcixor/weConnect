@@ -28,4 +28,8 @@ color: #67BCDB;
 }
 .nav-wrapper {
     background-color: #282828 !important;
-  }
+}
+.nav-wrapper a{
+  color: #D92B4B;
+  font-size: 150%;
+}
