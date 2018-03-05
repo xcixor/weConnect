@@ -1,2 +1,3 @@
 specifications.txt
 .vscode/
+*pycache*
