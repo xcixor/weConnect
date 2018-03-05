@@ -6,7 +6,7 @@ from app.api_v1.models import User
 
 class TestUserCase(unittest.TestCase):
     """
-    Test user functionality
+    Tests User class functionality
     tests:
         test_register_user()
         test_cannot_create_duplicate_user()
@@ -28,7 +28,7 @@ class TestUserCase(unittest.TestCase):
         """Test app can create a user successfully"""
         self.success_user.register_user()
         response = User.get_users()
-        self.assertEqual(response['message'], \
+        self.assertEqual(response, \
         [{'Username':'ptah', 'Email':'pndungu54@gmail.com', \
         'Password':'pass123'}])
 
