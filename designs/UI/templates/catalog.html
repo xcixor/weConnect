@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="../static/css/catalog.css">
+    <link rel="stylesheet" href="../static/css/style.css">  
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Catalog</title>
+</head>
+<body>
+    <!-- navbar -->
+    <nav>
+        <div class="nav-wrapper">
+            <div class="row">  
+                <div class="col m2 s12">                             
+                <a href="#!" class="brand-logo left">weConnect</a> 
+                </div>
+                <div class="col m8 s12">
+                    <form>
+                    <div class="input-field">
+                        <input id="search" type="search" placeholder="Search Business" required>
+                        <label class="label-icon" for="search"><i class="large material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                    </form>
+                </div>
+                <div class="col m2 s12">
+                    <a class="right" href="/designs/UI/templates/index.html">SIGN UP</a>
+                </div>
+            </div>
+        </div>
+    </nav> 
+    <!-- end nav -->
+
+    <!-- content -->
+    <div class="row panes">
+        <div class="col s12">
+            <ul class="tabs">
+            <div class="col m3 s3"></div>
+            <li class="tab col m2 s12"><a class="active" href="#all">All</a></li>
+            <li class="tab col m2 s12"><a href="#category">Categories</a></li>
+            <li class="tab col m2 s12"><a href="#location">Locations</a></li>
+            <div class="col m3 s3"></div>            
+            </ul>
+        </div>
+        <div id="all" class="col s12">
+            <!-- mocks of business data -->
+            <div class="row all">
+                <h3>View all our business listings</h3>                
+                <div class="col s12 m6">
+                    <div class="card sticky-action">
+                        <div class="card-content">
+                            <span class="card-title">Murimi Shoe shiner</span>
+                            <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+                        </div>
+                        <div class="card-action">
+                            <a class="modal-trigger modal-close" href="#business-details">View More</a>
+                            <span class="activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Reviews<i class="material-icons right">close</i></span>
+                            <p>Leah: Loved it</p>
+                            <p>Wanjiku: Dont waste your pennies here.</p>
+                            <p>Muthomi: Great services, kudos.</p>
+                            <p>Njeri: Will have to come back again.</p>
+                            <p>Kris: I have had better.</p>
+                            <p>Mutuiri: Cons, cons cons!</p>
+                            <p>Jimmy: Not bad for such a small place.</p>                     
+                            <p>Ciru: I think the waiters are racist!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6">
+                    <div class="card sticky-action">
+                        <div class="card-content">
+                            <span class="card-title">Wanjigi's Bakery</span>
+                            <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+                        </div>
+                        <div class="card-action">
+                            <a class="modal-trigger modal-close" href="#business-details">View More</a>
+                            <span class="activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Reviews<i class="material-icons right">close</i></span>
+                            <p>Leah: Loved it</p>
+                            <p>Wanjiku: Dont waste your pennies here.</p>
+                            <p>Muthomi: Great services, kudos.</p>
+                            <p>Njeri: Will have to come back again.</p>
+                            <p>Kris: I have had better.</p>
+                            <p>Mutuiri: Cons, cons cons!</p>
+                            <p>Jimmy: Not bad for such a small place.</p>                     
+                            <p>Ciru: I think the waiters are racist!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="card sticky-action">
+                            <div class="card-content">
+                                <span class="card-title">Pamzo's Cafe</span>
+                                <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+                            </div>
+                            <div class="card-action">
+                                <a class="modal-trigger modal-close" href="#business-details">View More</a>
+                                <span class="activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">Reviews<i class="material-icons right">close</i></span>
+                                <p>Leah: Loved it</p>
+                                <p>Wanjiku: Dont waste your pennies here.</p>
+                                <p>Muthomi: Great services, kudos.</p>
+                                <p>Njeri: Will have to come back again.</p>
+                                <p>Kris: I have had better.</p>
+                                <p>Mutuiri: Cons, cons cons!</p>
+                                <p>Jimmy: Not bad for such a small place.</p>                     
+                                <p>Ciru: I think the waiters are racist!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6">
+                            <div class="card sticky-action">
+                                <div class="card-content">
+                                    <span class="card-title">Pamzo's Cafe</span>
+                                    <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+                                </div>
+                                <div class="card-action">
+                                    <a class="modal-trigger modal-close" href="#business-details">View More</a>
+                                    <span class="activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+                                </div>
+                                <div class="card-reveal">
+                                    <span class="card-title grey-text text-darken-4">Reviews<i class="material-icons right">close</i></span>
+                                    <p>Leah: Loved it</p>
+                                    <p>Wanjiku: Dont waste your pennies here.</p>
+                                    <p>Muthomi: Great services, kudos.</p>
+                                    <p>Njeri: Will have to come back again.</p>
+                                    <p>Kris: I have had better.</p>
+                                    <p>Mutuiri: Cons, cons cons!</p>
+                                    <p>Jimmy: Not bad for such a small place.</p>                     
+                                    <p>Ciru: I think the waiters are racist!</p>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="category" class="col s12">
+            <div class="row">
+                <div class="col m6">
+                    <h3>View businesses by category</h3>                                                    
+                </div>
+                <div class="col m6">
+                    <form>
+                        <div class="input-field col s12">
+                            <i class="right material-icons prefix">search</i>
+                            <input id="category" type="text" class="validate">
+                            <label for="last_name">Category</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row all">
+                    <h4>Food</h4>                
+                    <div class="col s12 m6">
+                            <div class="card sticky-action">
+                                <div class="card-content">
+                                    <span class="card-title">Pamzo's Cafe</span>
+                                    <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+                                </div>
+                                <div class="card-action">
+                                    <a class="modal-trigger modal-close" href="#business-details">View More</a>
+                                    <span class="activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+                                </div>
+                                <div class="card-reveal">
+                                    <span class="card-title grey-text text-darken-4">Reviews<i class="material-icons right">close</i></span>
+                                    <p>Leah: Loved it</p>
+                                    <p>Wanjiku: Dont waste your pennies here.</p>
+                                    <p>Muthomi: Great services, kudos.</p>
+                                    <p>Njeri: Will have to come back again.</p>
+                                    <p>Kris: I have had better.</p>
+                                    <p>Mutuiri: Cons, cons cons!</p>
+                                    <p>Jimmy: Not bad for such a small place.</p>                     
+                                    <p>Ciru: I think the waiters are racist!</p>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col s12 m6">
+                            <div class="card sticky-action">
+                                <div class="card-content">
+                                    <span class="card-title">Wanjigi Bakery</span>
+                                    <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+                                </div>
+                                <div class="card-action">
+                                    <a class="modal-trigger modal-close" href="#business-details">View More</a>
+                                    <span class="activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+                                </div>
+                                <div class="card-reveal">
+                                    <span class="card-title grey-text text-darken-4">Reviews<i class="material-icons right">close</i></span>
+                                    <p>Leah: Loved it</p>
+                                    <p>Wanjiku: Dont waste your pennies here.</p>
+                                    <p>Muthomi: Great services, kudos.</p>
+                                    <p>Njeri: Will have to come back again.</p>
+                                    <p>Kris: I have had better.</p>
+                                    <p>Mutuiri: Cons, cons cons!</p>
+                                    <p>Jimmy: Not bad for such a small place.</p>                     
+                                    <p>Ciru: I think the waiters are racist!</p>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="row all">
+                        <h4>Cosmetics</h4>                
+                        <div class="col s12 m6">
+                                <div class="card sticky-action">
+                                    <div class="card-content">
+                                        <span class="card-title">Lyn Salon</span>
+                                        <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <a class="modal-trigger modal-close" href="#business-details">View More</a>
+                                        <span class="activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+                                    </div>
+                                    <div class="card-reveal">
+                                        <span class="card-title grey-text text-darken-4">Reviews<i class="material-icons right">close</i></span>
+                                        <p>Leah: Loved it</p>
+                                        <p>Wanjiku: Dont waste your pennies here.</p>
+                                        <p>Muthomi: Great services, kudos.</p>
+                                        <p>Njeri: Will have to come back again.</p>
+                                        <p>Kris: I have had better.</p>
+                                        <p>Mutuiri: Cons, cons cons!</p>
+                                        <p>Jimmy: Not bad for such a small place.</p>                     
+                                        <p>Ciru: I think the waiters are racist!</p>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+        </div>
+        <div id="location" class="col s12">
+                <div class="row">
+                    <div class="col m6">
+                        <h3>View businesses by Location</h3>                                                    
+                    </div>
+                    <div class="col m6">
+                        <form>
+                            <div class="input-field col s12">
+                                <i class="right material-icons prefix">search</i>
+                                <input id="location" type="text" class="validate">
+                                <label for="last_name">Location</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>                           
+                <div class="row all">
+                        <h4>Nairobi</h4>                
+                        <div class="col s12 m6">
+                                <div class="card sticky-action">
+                                    <div class="card-content">
+                                        <span class="card-title">Pamzo's Cafe</span>
+                                        <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <a class="modal-trigger modal-close" href="#business-details">View More</a>
+                                        <span class="activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+                                    </div>
+                                    <div class="card-reveal">
+                                        <span class="card-title grey-text text-darken-4">Reviews<i class="material-icons right">close</i></span>
+                                        <p>Leah: Loved it</p>
+                                        <p>Wanjiku: Dont waste your pennies here.</p>
+                                        <p>Muthomi: Great services, kudos.</p>
+                                        <p>Njeri: Will have to come back again.</p>
+                                        <p>Kris: I have had better.</p>
+                                        <p>Mutuiri: Cons, cons cons!</p>
+                                        <p>Jimmy: Not bad for such a small place.</p>                     
+                                        <p>Ciru: I think the waiters are racist!</p>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="row all">
+                            <h4>Mombasa</h4>                
+                            <div class="col s12 m6">
+                                    <div class="card sticky-action">
+                                        <div class="card-content">
+                                            <span class="card-title">Lyn Salon</span>
+                                            <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+                                        </div>
+                                        <div class="card-action">
+                                            <a class="modal-trigger modal-close" href="#business-details">View More</a>
+                                            <span class="activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+                                        </div>
+                                        <div class="card-reveal">
+                                            <span class="card-title grey-text text-darken-4">Reviews<i class="material-icons right">close</i></span>
+                                            <p>Leah: Loved it</p>
+                                            <p>Wanjiku: Dont waste your pennies here.</p>
+                                            <p>Muthomi: Great services, kudos.</p>
+                                            <p>Njeri: Will have to come back again.</p>
+                                            <p>Kris: I have had better.</p>
+                                            <p>Mutuiri: Cons, cons cons!</p>
+                                            <p>Jimmy: Not bad for such a small place.</p>                     
+                                            <p>Ciru: I think the waiters are racist!</p>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="col s12 m6">
+                                    <div class="card sticky-action">
+                                        <div class="card-content">
+                                            <span class="card-title">Murimi Shoe shiner</span>
+                                            <p>Curabitur aliquet quam id dui posuere blandit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Proin eget tortor risus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+                                        </div>
+                                        <div class="card-action">
+                                            <a class="modal-trigger modal-close" href="#business-details">View More</a>
+                                            <span class="activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+                                        </div>
+                                        <div class="card-reveal">
+                                            <span class="card-title grey-text text-darken-4">Reviews<i class="material-icons right">close</i></span>
+                                            <p>Leah: Loved it</p>
+                                            <p>Wanjiku: Dont waste your pennies here.</p>
+                                            <p>Muthomi: Great services, kudos.</p>
+                                            <p>Njeri: Will have to come back again.</p>
+                                            <p>Kris: I have had better.</p>
+                                            <p>Mutuiri: Cons, cons cons!</p>
+                                            <p>Jimmy: Not bad for such a small place.</p>                     
+                                            <p>Ciru: I think the waiters are racist!</p>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+        </div>
+        <!-- end mocks -->
+    </div>
+
+    <!-- modal for more business details -->
+    <div id="business-details" class="modal">
+            <div class="modal-content">
+                <h5>About</h5>
+                <p>Donec rutrum congue leo eget malesuada. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor lectus nibh. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.</p>
+                <h5>Location</h5>
+                <p>Somewhere</p>
+                <h5>Services Offerd</h5>
+                <ul>
+                    <li>service one</li>
+                    <li>service two</li>
+                    <li>service three</li>
+                    <li>service four</li>
+                    <li>service five</li>
+                </ul>
+                <h5>Contacts</h5>
+                <p>Tel: 1233555</p>
+                <p>Cel: 1233555</p>
+                <h6>Address</h6>
+                <p>P.O.Box</p>   
+                <p>1234</p>     
+                <p>Somewhere</p>        
+                <form>        
+                <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="contact" class="materialize-textarea"></textarea>
+                                <label for="contact">Say Something about this Business</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>                
+                            <button type="submit" name="action" class="modal-action waves-effect waves-green btn-flat left">
+                                Post Comment
+                            </button>
+                        </div>
+                    </form>            
+                </div>
+            </div>
+        </div>
+        <!-- end modal -->
+
+    <!-- scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>       
+    <script src="../static/js/materialize_init.js"></script>    
+</body>
+</html>
