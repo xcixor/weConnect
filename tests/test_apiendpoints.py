@@ -32,11 +32,13 @@ class TestApi(unittest.TestCase):
         self.client = self.app.test_client
         self.user = {'Username':'Peter', 'Email':'pndungu54@gmail.com', \
         'Password':'pass123','Confirm Password':'pass123'}
-        self.mock_business = {"Name":"James Barber", \
-        "Description":"We no longer sell bananas", \
-        "Location":"Kawangware", \
-        "Category":"fruit vendors"}
-        self.mock_review = {'Description':'best mandazis ever'}
+        self.mock_business = {
+            "Name":"James Barber",
+            "Description":"We no longer sell bananas",
+            "Location":"Kawangware",
+            "Category":"fruit vendors"
+        }
+        self.mock_review = {'Description':'best mandazis ever', 'owner':self.user.['Username']}
         self.app_context = self.app.app_context()
         self.app_context.push()
 
@@ -47,9 +49,7 @@ class TestApi(unittest.TestCase):
 
     def test_registration(self):
         """Test that api can register a user"""
-        user = {'Username':'ptah', 'Email':'pndungu54@gmail.com', \
-        'Password':'pass123','Confirm Password':'pass123'}
-        res = self.client().post('/api/auth/register', data=user)
+        res = self.client().post('/api/auth/register', data=self.user)
         self.assertEqual(res.status_code, 201)
         self.assertIn('ptah', str(res.data)) 
 
@@ -70,23 +70,23 @@ class TestApi(unittest.TestCase):
             "Username":"Peter",
             "Password":"pass123"
         }
-        res = self.client().post('/api/auth/register', \
+        res = self.client().post('/api/auth/register',
         data=self.user)
         self.assertEqual(res.status_code, 201)
         result = self.client().post('/api/auth/login', data=logins)
-        self.assertIsInstance(result.tokens, bytes)
+        self.assertIsInstance(result.data.get('token'), bytes)
 
-    def test_decode_token(self):
-        """Test api decodes token successfully"""
+    def test_decode_token(self):   
+        """Test api decodes token successfully"""  
         logins = {
             "Username":"Peter",
             "Password":"pass123"
-        }
+            }  
         res = self.client().post('/api/auth/register', data=self.user)
         self.assertEqual(res.status_code, 201)
         result = self.client().post('/api/auth/login', data=logins)
         self.assertIsInstance(result.tokens, bytes)   
-
+   
     def test_unregistered_user_login(self):
         """Test api cannot login unregistered user"""
         logins = {
@@ -98,8 +98,13 @@ class TestApi(unittest.TestCase):
 
     def test_logout(self):
         """Test api can log user out"""
-        # test token expiration or whatever way
-        pass
+        res = self.client().post('/api/auth/register', data=self.user)
+        self.assertEqual(res.status_code, 201)
+        self.client().post('/api/auth/logout')
+        response = self.client().post('/api/businesses', \
+        data=self.mock_business)
+        self.assertEqual(response.status_code, 403)
+
 
     def test_reset_password(self):
         """Test api can change user password"""
@@ -123,6 +128,7 @@ class TestApi(unittest.TestCase):
         self.assertIn('James Barber', str(response.data))
 
     def test_update_business(self):
+        
         """Test api can update a business"""
         response = self.client().post('/api/businesses', \
         data=self.mock_business)
@@ -179,7 +185,15 @@ class TestApi(unittest.TestCase):
 
     def retrieve_business_reviews(self):
         """Test api can retrieve all business reviews"""
-        pass
+        response = self.client().post('/api/businesses', \
+        data=self.mock_business)
+        self.assertEqual(response.status_code, 201)
+        review = {'Description':'Great services','owner':self.user.['Username']}        
+        res = self.client().post('/api/businesses/1/reviews', \
+        data=review)
+        self.assertEqual(res.status_code, 200)
+        result = self.client().get('/api/businesses/1/reviews')
+        self.assertIn('Great services', str(result.data))
 
     
     
