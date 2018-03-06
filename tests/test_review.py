@@ -12,15 +12,18 @@ class TestReviewCase(unittest.TestCase):
     """
     def setUp(self):
         self.review = Review()
-        self.success_user = User('ptah', 'pndungu54@gmail.com', 'pass123', 'pass123')
+        self.success_user = User('ptah', 'pndungu54@gmail.com', \
+        'pass123', 'pass123')
 
     def tearDown(self):
         del self.review
 
     def test_create_review(self):
         """Test app can create review"""
-        response = self.review.create_review('I didn\'t like your place', self.success_user.username)
-        self.assertEqual(response['message'], 'Review written successfuly')
+        response = self.review.create_review('I didn\'t like your place', \
+        self.success_user.username)
+        self.assertEqual(response['message'], \
+        'Review written successfuly')
         
     def test_valid_review(self):
         """Test app only allows valid reviews"""

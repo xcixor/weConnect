@@ -2,8 +2,6 @@
 
 import unittest
 
-import json
-
 from flask import jsonify
 
 from app import create_app
@@ -32,8 +30,12 @@ class TestApi(unittest.TestCase):
         """Initialize the app and test variables"""
         self.app = create_app('testing')
         self.client = self.app.test_client
-        self.user = {'Username':'Peter', 'Email':'pndungu54@gmail.com', 'Password':'pass123','Confirm Password':'pass123'}
-        self.mock_business = {"Name":"James Barber", "Description":"We no longer sell bananas", "Location":"Kawangware", "Category":"fruit vendors"}
+        self.user = {'Username':'Peter', 'Email':'pndungu54@gmail.com', \
+        'Password':'pass123','Confirm Password':'pass123'}
+        self.mock_business = {"Name":"James Barber", \
+        "Description":"We no longer sell bananas", \
+        "Location":"Kawangware", \
+        "Category":"fruit vendors"}
         self.mock_review = {'Description':'best mandazis ever'}
         self.app_context = self.app.app_context()
         self.app_context.push()
@@ -41,7 +43,7 @@ class TestApi(unittest.TestCase):
     def tearDown(self):
         self.app_context.pop()
         del self.user
-        # del self.mock_business
+        del self.mock_business
 
     def test_registration(self):
         """Test that api can register a user"""
@@ -68,7 +70,8 @@ class TestApi(unittest.TestCase):
             "Username":"Peter",
             "Password":"pass123"
         }
-        res = self.client().post('/api/auth/register', data=self.user)
+        res = self.client().post('/api/auth/register', \
+        data=self.user)
         self.assertEqual(res.status_code, 201)
         result = self.client().post('/api/auth/login', data=logins)
         self.assertIsInstance(result.tokens, bytes)
@@ -100,7 +103,8 @@ class TestApi(unittest.TestCase):
 
     def test_reset_password(self):
         """Test api can change user password"""
-        user = {'Username':'Jim', 'Email':'pndungu54@gmail.com', 'Password':'pass123','Confirm Password':'pass123'}        
+        user = {'Username':'Jim', 'Email':'pndungu54@gmail.com', \
+        'Password':'pass123','Confirm Password':'pass123'}        
         logins = {
             "Username":"Jim",
             "Previous Password":"pass123",
@@ -113,13 +117,15 @@ class TestApi(unittest.TestCase):
 
     def test_create_business(self):
         """Test API can create a business successfuly (POST)"""
-        response = self.client().post('/api/businesses', data=self.mock_business)
+        response = self.client().post('/api/businesses', \
+        data=self.mock_business)
         self.assertEqual(response.status_code, 201)
         self.assertIn('James Barber', str(response.data))
 
     def test_update_business(self):
         """Test api can update a business"""
-        response = self.client().post('/api/businesses', data=self.mock_business)
+        response = self.client().post('/api/businesses', \
+        data=self.mock_business)
         self.assertEqual(response.status_code, 201)
         response_value = self.client().put('/api/businesses/1',
             data = {
@@ -132,7 +138,9 @@ class TestApi(unittest.TestCase):
 
     def test_delete_business(self):
         """Test whether api can delete a business"""
-        business = {'Name':'Wakanyugi funeral services', 'Description':'Laying the body to rest', 'Category':'Funeral', 'Location':'Kirinyaga'}        
+        business = {'Name':'Wakanyugi funeral services', \
+        'Description':'Laying the body to rest', \
+        'Category':'Funeral', 'Location':'Kirinyaga'}        
         res = self.client().post('/api/businesses', data=business)
         self.assertEqual(res.status_code, 201)
         self.assertIn('Wakanyugi funeral services', str(res.data))
@@ -143,7 +151,8 @@ class TestApi(unittest.TestCase):
 
     def test_view_businesses(self):
         """Test that the api can retrieve all businesses"""
-        response = self.client().post('/api/businesses', data=self.mock_business)
+        response = self.client().post('/api/businesses', \
+        data=self.mock_business)
         self.assertEqual(response.status_code, 201)
         response = self.client().get('/api/businesses')
         self.assertEqual(response.status_code, 200)
@@ -151,7 +160,8 @@ class TestApi(unittest.TestCase):
 
     def test_get_business_by_id(self):
         """Test api can retrieve a business by id"""
-        response = self.client().post('/api/businesses', data=self.mock_business)
+        response = self.client().post('/api/businesses', \
+        data=self.mock_business)
         self.assertEqual(response.status_code, 201)
         result = self.client().get('/api/businesses/1')       
         self.assertEqual(result.status_code, 200)
@@ -159,9 +169,11 @@ class TestApi(unittest.TestCase):
 
     def test_write_review(self):
         """Test api can allow user to write a review"""
-        response = self.client().post('/api/businesses', data=self.mock_business)
+        response = self.client().post('/api/businesses', \
+        data=self.mock_business)
         self.assertEqual(response.status_code, 201)
-        res = self.client().post('/api/businesses/1/reviews', data=self.mock_review)
+        res = self.client().post('/api/businesses/1/reviews', \
+        data=self.mock_review)
         self.assertEqual(res.status_code, 200)
         self.assertIn('mandazi', str(res.data))
 
