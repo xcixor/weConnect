@@ -16,6 +16,8 @@ class TestUserCase(unittest.TestCase):
         test_passwords_match()
         test_login()
         test_logout()
+        test_reset_password()
+        test_reset_password_with_wrong_previous_password()
     """
     def setUp(self):
         self.success_user = User('ptah', 'pndungu54@gmail.com',\
@@ -77,3 +79,13 @@ class TestUserCase(unittest.TestCase):
         response = self.success_user.log_out()
         self.assertTrue(response)
 
+    def test_reset_password(self):
+        """Test app can allow reset password"""
+        self.success_user.register_user()
+        result = self.success_user.reset_password('pass123', '123pass')
+        self.assertEqual(result['message'], 'Password successfully changed')
+
+    def test_reset_password_with_wrong_previous_password(self):
+        self.success_user.register_user()
+        result = self.success_user.reset_password('wrong345', 'new1234')
+        self.assertEqual(result['message'], 'Previous password incorrect')
