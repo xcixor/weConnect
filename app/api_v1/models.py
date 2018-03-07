@@ -73,6 +73,20 @@ class User(object):
         else:
             return {"message":"Invalid username/password combination"}
             
+    def reset_password(self, old_password, new_password):
+        user_to_update = [user for user in User.users if user['Username'] == self.name]
+        if user_to_update:
+            if old_password == user_to_update[0]['Password']: 
+                if User.verify_password_length(new_password):
+                    user_to_update[0]['Password'] = new_password
+                    return {'message':'Password successfully changed'}
+                else:
+                    return "Pasword too short"
+            else:
+                return {"message":"Previous password incorrect"}
+        else:
+            return "That user does not exist"
+
     @classmethod
     def get_users(cls):
         return User.users
