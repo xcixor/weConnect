@@ -17,8 +17,8 @@ class User(object):
     """
     users = []
 
-    def __init__(self, name, email, password, confirm_password):
-        self.name = name
+    def __init__(self, username, email, password, confirm_password):
+        self.name = username
         self.email = email
         self. password = password
         self.confirm_password = confirm_password
@@ -62,9 +62,9 @@ class User(object):
     @staticmethod
     def verify_email(email):
         """Check if email is valid"""
-        if re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
+        if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
             return True
-
+            
     @classmethod
     def get_users(cls):
         return User.users
