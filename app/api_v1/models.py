@@ -26,7 +26,7 @@ class User(object):
         
     def find_user(self):
         """Checks whether a user exists in the users list"""
-        registered_user = [user for user in User.users if user['Username'] == self.name]
+        registered_user = [user for user in User.users if user['Username'].lower() == self.name.lower()]
         if registered_user:
             return True
         return False
@@ -145,6 +145,7 @@ class Business(object):
         if category_to_update:
             for key, value in kwargs.items():
                 category_to_update [key] = value
+                
 
     def delete_business(self):
         found_business = self.find_business()
@@ -161,7 +162,7 @@ class Business(object):
 
     @classmethod
     def get_businesses_by_category(cls, category):
-        found_businesses = [business for business in Business.businesses if business['Category'] == category]
+        found_businesses = [business for business in Business.businesses if business['Category'].lower() == category.lower()]
         return found_businesses
 
     @classmethod
