@@ -149,5 +149,15 @@ class Business(object):
         else:
             return False
 
+    def delete_business(self):
+        found_business = self.find_business()
+        if found_business:
+            Business.businesses.remove(found_business)
+            return True
+        else:
+            return False
+
+
+
 
     
