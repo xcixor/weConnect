@@ -57,12 +57,12 @@ class TestBusinessCase(unittest.TestCase):
     #     [{"Id":1, "Name":"James Barber", "Description":"We no longer sell bananas", \
     #     "Location":"Somewhere", "Category":"fruit vendors", "Address":"1234-Kawangware", "Reviews":[]}])
         
-    def test_delete_business(self):
-        """Test app can delete business successfully"""
-        self.mock_business.create_business()
-        response = self.mock_business.delete_business()
-        self.assertTrue(response)
-        self.assertEqual(Business.get_all_businesses(), [])
+    # def test_delete_business(self):
+    #     """Test app can delete business successfully"""
+    #     self.mock_business.create_business()
+    #     response = self.mock_business.delete_business()
+    #     self.assertTrue(response)
+    #     self.assertEqual(Business.get_all_businesses(), [])
     
     def test_find_event_by_id(self):
         """Test app can find a business by id"""
@@ -91,22 +91,17 @@ class TestBusinessCase(unittest.TestCase):
     def test_add_business_review(self):
         """Test user can write a business review"""
         self.mock_business.create_business()
-<<<<<<< HEAD
-        response = self.mock_business.write_review('Loved the place', \
-        self.success_user.username)
-=======
         response = self.mock_business.write_review('Loved the place', self.success_user.name)
->>>>>>> 155800892-write-review
         self.assertEqual(response['message'], 'Review written successfuly')
 
-    # def test_get_all_reviews(self):
-    #     """Test app can get all reviews for a particular business"""
-    #     self.mock_business.create_business()
-    #     self.mock_business.write_review('Worst services ever', self.success_user.name)
-    #     self.mock_business.write_review('Impunity of the highest order', self.success_user.name)
-    #     response = self.mock_business.get_all_reviews()
-    #     self.assertEqual(response, [{'id':'1', \
-    #     'comment':'Worst services ever', 'owner':'ptah'}, \
-    #     {'id':'2', 'comment':'Impunity of the highest order', \
-    #     'owner':'ptah'}])
+    def test_get_all_reviews(self):
+        """Test app can get all reviews for a particular business"""
+        self.mock_business.create_business()
+        self.mock_business.write_review('Worst services ever', self.success_user.name)
+        self.mock_business.write_review('Impunity of the highest order', self.success_user.name)
+        response = self.mock_business.get_all_reviews()
+        self.assertEqual(response, [{'Id':1, \
+        'Comment':'Worst services ever', 'Owner':'ptah'}, \
+        {'Id':2, 'Comment':'Impunity of the highest order', \
+        'Owner':'ptah'}])
     

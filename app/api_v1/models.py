@@ -177,6 +177,9 @@ class Business(object):
             self.reviews.append(business_review)
             return {'message':'Review written successfuly'}
 
+    def get_all_reviews(self):
+        return self.reviews
+
 class Review(object):
     """Defines a review
     
@@ -195,7 +198,7 @@ class Review(object):
 
     def create_review(self):
         Review.count += 1
-        review = {'Id':Review.count, 'Description':self.description, 'Owner':self.owner}
+        review = {'Id':Review.count, 'Comment':self.description, 'Owner':self.owner}
         return review
 
     def delete_review(self, reviews_list, id):
