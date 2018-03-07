@@ -24,20 +24,15 @@ class TestBusinessCase(unittest.TestCase):
     def setUp(self):
         self.mock_business = Business("James Barber", "We sell bananas", \
         "fruit vendors", "Kawangware", "1234-Kawangware")
-        print('Setting up'*5)
         self.success_user = User('ptah', 'pndungu54@gmail.com', 'pass123', 'pass123')
         
     def create_mock(self):
         return Business("James Barber", "We sell bananas", \
         "fruit vendors", "Kawangware", "1234-Kawangware")
 
-    def tearDown(self):
-        # del self.mock_business.businesses[:]
-        
+    def tearDown(self):        
         # del Business.businesses[:]
-        # Business.businesses = []
-        self.mock_business = None
-        print('tearing down'*5)
+        del self.mock_business
 
     def test_create_business(self):
         """Test whether a business can be created succesfully"""
@@ -62,12 +57,12 @@ class TestBusinessCase(unittest.TestCase):
     #     [{"Id":1, "Name":"James Barber", "Description":"We no longer sell bananas", \
     #     "Location":"Somewhere", "Category":"fruit vendors", "Address":"1234-Kawangware", "Reviews":[]}])
         
-    # def test_delete_business(self):
-    #     """Test app can delete business successfully"""
-    #     self.mock_business.create_business()
-    #     response = self.mock_business.delete_business()
-    #     self.assertTrue(response)
-    #     self.assertEqual(Business.get_all_businesses(), [])
+    def test_delete_business(self):
+        """Test app can delete business successfully"""
+        self.mock_business.create_business()
+        response = self.mock_business.delete_business()
+        self.assertTrue(response)
+        self.assertEqual(Business.get_all_businesses(), [])
     
     def test_find_event_by_id(self):
         """Test app can find a business by id"""
@@ -96,8 +91,12 @@ class TestBusinessCase(unittest.TestCase):
     def test_add_business_review(self):
         """Test user can write a business review"""
         self.mock_business.create_business()
+<<<<<<< HEAD
         response = self.mock_business.write_review('Loved the place', \
         self.success_user.username)
+=======
+        response = self.mock_business.write_review('Loved the place', self.success_user.name)
+>>>>>>> 155800892-write-review
         self.assertEqual(response['message'], 'Review written successfuly')
 
     # def test_get_all_reviews(self):
