@@ -95,3 +95,46 @@ class User(object):
     @classmethod
     def get_users(cls):
         return User.users
+class Business(object):
+    """Defines a business
+    
+    Attributes:
+    
+    businesses(List), name(str), description(str), 
+    category(str), location(str), comments(list)
+
+    Methods:
+
+    create_business(), view_business(), 
+    update_business(), delete_business(), write_review(), get_all_reviews()
+    """
+    businesses = []
+    count = 0
+
+    def __init__(self, name, description, category, location, address):
+        self.name = name
+        self.description = description
+        self.category = category
+        self.location = location
+        self.address = address
+        self.reviews = []
+
+    def create_business(self):
+        if self.find_business():
+            return {"message":"Cannot create duplicate business"}
+        else:    
+            Business.count += 1        
+            business = {'Id':Business.count, 'Name': self.name, 'Description':self.description, \
+            'Category':self.category, 'Location':self.location, 'Reviews':self.reviews, 'Address':self.address}
+            Business.businesses.append(business)
+            return True
+    @classmethod
+    def get_all_businesses(cls):
+        return Business.businesses
+
+    def find_business(self):
+        found_business = [business for business in Business.businesses if business['Name'] == self.name]
+        if found_business:
+            return found_business[0]
+        else:
+            return None
