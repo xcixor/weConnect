@@ -153,11 +153,16 @@ class Business(object):
             return True
         else:
             return False
+
     @classmethod
     def get_business_by_id(cls, id):
         found_business = [business for business in Business.businesses if business['Id'] == id]
         return found_business[0]
 
+    @classmethod
+    def get_businesses_by_category(cls, category):
+        found_businesses = [business for business in Business.businesses if business['Category'] == category]
+        return found_businesses
   
 
 
