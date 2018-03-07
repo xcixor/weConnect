@@ -128,13 +128,26 @@ class Business(object):
             'Category':self.category, 'Location':self.location, 'Reviews':self.reviews, 'Address':self.address}
             Business.businesses.append(business)
             return True
+
     @classmethod
     def get_all_businesses(cls):
         return Business.businesses
 
     def find_business(self):
-        found_business = [business for business in Business.businesses if business['Name'] == self.name]
+        found_business = [business for business in Business.businesses if business['Name'].lower() == self.name.lower()]
         if found_business:
             return found_business[0]
         else:
             return None
+
+    def edit_business(self, **kwargs):
+        category_to_update = self.find_business()
+        if category_to_update:
+            for key, value in kwargs.items():
+                category_to_update [key] = value
+                return True
+        else:
+            return False
+
+
+    
