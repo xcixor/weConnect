@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/xcixor/weConnect.svg?branch=master)](https://travis-ci.org/xcixor/weConnect)
+[![Coverage Status](https://coveralls.io/repos/github/xcixor/weConnect/badge.svg?branch=master)](https://coveralls.io/github/xcixor/weConnect?branch=master)
+
 # What is this app? 
     WeConnect is a platform that brings businesses and individuals together. It creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.
 
