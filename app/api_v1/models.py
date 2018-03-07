@@ -22,6 +22,7 @@ class User(object):
         self.email = email
         self. password = password
         self.confirm_password = confirm_password
+        self.login_status = False
         
     def find_user(self):
         """Checks whether a user exists in the users list"""
@@ -81,11 +82,15 @@ class User(object):
                     user_to_update[0]['Password'] = new_password
                     return {'message':'Password successfully changed'}
                 else:
-                    return "Pasword too short"
+                    return {"message":"Password cannot be less than 6 characters!"}
             else:
                 return {"message":"Previous password incorrect"}
         else:
-            return "That user does not exist"
+            return {"message":"That user does not exist"}
+
+    def log_out(self):
+        self.login_status = True
+        return True
 
     @classmethod
     def get_users(cls):
