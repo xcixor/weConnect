@@ -129,7 +129,7 @@ class TestApi(unittest.TestCase):
 
     def test_update_business(self):
         
-        """Test api can update a business"""
+        pndungu54"""Test api can update a business"""
         response = self.client().post('/api/businesses', \
         data=self.mock_business)
         self.assertEqual(response.status_code, 201)
