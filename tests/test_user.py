@@ -38,15 +38,14 @@ class TestUserCase(unittest.TestCase):
         """Test app cannot create duplicate users"""
         self.success_user.register_user()
         response = self.success_user.register_user()
-        self.assertEqual(response['message'], 'User already exists')
+        self.assertEqual(response['message'], 'User already exist!')
 
     def test_valid_username(self):
         """Test app does not allow invalid username,
         i.e containing special characters"""
         user = User('2@#$#', 'user@yahoo.com', 'pass123', 'pass123')
         response = user.register_user()
-        self.assertEqual(response['message'], 'Username cannot \
-        contain special characters')
+        self.assertEqual(response['message'], 'Username cannot contain special characters')
 
     def test_valid_email(self):
         """Test app cannot allow invalid email"""
@@ -64,7 +63,7 @@ class TestUserCase(unittest.TestCase):
         """Test password is greater or equal to six characters!"""
         user = User('Jini', 'jin@g.com','jin1', 'jin1')
         response = user.register_user()
-        self.assertTrue(response['message'], 'That password is too short!')
+        self.assertTrue(response['message'], 'Password cannot be less than 6 characters!')
 
     def test_login(self):
         """Test user can logout successfuly"""
