@@ -163,6 +163,11 @@ class Business(object):
     def get_businesses_by_category(cls, category):
         found_businesses = [business for business in Business.businesses if business['Category'] == category]
         return found_businesses
+
+    @classmethod
+    def get_businesses_by_location(cls, location):
+        found_businesses = [business for business in Business.businesses if business['Location'] == location]
+        return found_businesses
   
 
 
