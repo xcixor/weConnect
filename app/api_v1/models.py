@@ -169,6 +169,40 @@ class Business(object):
     def get_businesses_by_location(cls, location):
         found_businesses = [business for business in Business.businesses if business['Location'] == location]
         return found_businesses
+
+    def write_review(self, description, owner):
+        review = Review(description, owner)
+        business_review = review.create_review()
+        if business_review:
+            self.reviews.append(business_review)
+            return {'message':'Review written successfuly'}
+
+class Review(object):
+    """Defines a review
+    
+    Attributes:
+
+    description(str), owner(str)
+
+    Methods:
+
+    create_review(), delete_review(), validate_comment()
+    """
+    count = 0
+    def __init__(self, description, owner):
+        self.description = description
+        self.owner = owner
+
+    def create_review(self):
+        Review.count += 1
+        review = {'Id':Review.count, 'Description':self.description, 'Owner':self.owner}
+        return review
+
+    def delete_review(self, reviews_list, id):
+        delete_review = [review for review in reviews_list if review['Id' == id]]  
+        if delete_review:
+            reviews_list.remove(delete_review)
+            return True
   
 
 
