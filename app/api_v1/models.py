@@ -145,9 +145,6 @@ class Business(object):
         if category_to_update:
             for key, value in kwargs.items():
                 category_to_update [key] = value
-                return True
-        else:
-            return False
 
     def delete_business(self):
         found_business = self.find_business()
@@ -156,6 +153,14 @@ class Business(object):
             return True
         else:
             return False
+    @classmethod
+    def get_business_by_id(cls, id):
+        found_business = [business for business in Business.businesses if business['Id'] == id]
+        return found_business[0]
+
+  
+
+
 
 
 
