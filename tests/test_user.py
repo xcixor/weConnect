@@ -81,10 +81,10 @@ class TestUserCase(unittest.TestCase):
     def test_reset_password(self):
         """Test app can allow reset password"""
         self.success_user.register_user()
-        result = self.success_user.reset_password('pass123', '123pass')
+        result = User.reset_password(self.success_user.name,'pass123', '123pass')
         self.assertEqual(result['message'], 'Password successfully changed')
 
     def test_reset_password_with_wrong_previous_password(self):
         self.success_user.register_user()
-        result = self.success_user.reset_password('wrong345', 'new1234')
+        result = User.reset_password(self.success_user.name, 'wrong345', 'new1234')
         self.assertEqual(result['message'], 'Previous password incorrect')
