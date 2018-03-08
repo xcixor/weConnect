@@ -14,6 +14,8 @@ from datetime import datetime, timedelta
 
 from functools import wraps
 
+black_list = []
+
 @api.route('/auth/register', methods=['POST'])
 def register_user():
     """Register new user"""
@@ -75,6 +77,8 @@ def auth_required(f):
         try:
             data = jwt.decode(token, current_app.config.get('SECRET_KEY'))
             current_user = User.get_user(data['id'])
+        if token in black_list:
+            return unauthorized('You need to login!')
         except:
             return unauthorized('Token is invalid')
         return f(current_user, *args, **kwargs)
@@ -101,3 +105,19 @@ def reset_password(current_user):
             return forbidden(update_user)
     else:
         return bad_request("Provide all fields")
+
+    @api.route('/auth/logout', methods=['POST'])
+    @auth_required
+    def log_out(current_user):
+        if not current_user:
+            return unauthorized('You are not allowed to perform this action')
+        token = request.headers['x-access-token']
+        black_list.append(token)
+        response = jsonify{
+            'message'='Logged out'
+        }
+        response.status_code = 201
+        return response
+
+        
+
