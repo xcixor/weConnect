@@ -1,10 +1,13 @@
 """Contains app configurations"""
 
+import os
+
 class Config:
     """
     Contains the common setings that all configuration options must have
     """
     Debug = False
+    SECRET_KEY = os.urandom(30)
 
     @staticmethod
     def init_app(app):
