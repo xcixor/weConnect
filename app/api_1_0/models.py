@@ -95,6 +95,10 @@ class User(object):
         user = [user for user in User.users if user['Username'] == username]        
         return user[0]
 
+    @classmethod
+    def get_users(cls):
+        return User.users
+
 class Business(object):
     """Defines a business
     
@@ -108,66 +112,67 @@ class Business(object):
     create_business(), view_business(), 
     update_business(), delete_business(), write_review(), get_all_reviews()
     """
-    businesses = []
-    count = 0
+    # count = 0
 
-    def __init__(self, name, description, category, location, address):
+    def __init__(self, id, name, description, category, location, address, owner):
+        self.id = id
         self.name = name
         self.description = description
         self.category = category
         self.location = location
         self.address = address
+        self.owner = owner
         self.reviews = []
 
-    def create_business(self):
-        if self.find_business():
+    def create_business(self, busines_list):
+        if self.find_business(busines_list):
             return {"message":"Cannot create duplicate business"}
         else:    
-            Business.count += 1        
-            business = {'Id':Business.count, 'Name': self.name, 'Description':self.description, \
+            # Business.count += 1        
+            business = {'Id':self.id, "Owner":self.owner, 'Name': self.name, 'Description':self.description, \
             'Category':self.category, 'Location':self.location, 'Reviews':self.reviews, 'Address':self.address}
-            Business.businesses.append(business)
+            busines_list.append(business)
             return True
 
     @classmethod
-    def get_all_businesses(cls):
-        return Business.businesses
+    def get_all_businesses(cls, business_list):
+        return business_list
 
-    def find_business(self):
-        found_business = [business for business in Business.businesses if business['Name'].lower() == self.name.lower()]
+    def find_business(self, business_list):
+        found_business = [business for business in business_list if business['Name'].lower() == self.name.lower()]
         if found_business:
             return found_business[0]
         else:
             return None
 
-    def edit_business(self, **kwargs):
-        category_to_update = self.find_business()
+    def edit_business(self,business_list, **kwargs):
+        category_to_update = self.find_business(business_list)
         if category_to_update:
             for key, value in kwargs.items():
                 category_to_update [key] = value
                 
-
-    def delete_business(self):
-        found_business = self.find_business()
+    @classmethod
+    def delete_business(cls, business_list, id):
+        found_business = Business.get_business_by_id(business_list, id)
         if found_business:
-            Business.businesses.remove(found_business)
+            business_list.remove(found_business)
             return True
         else:
             return False
 
     @classmethod
-    def get_business_by_id(cls, id):
-        found_business = [business for business in Business.businesses if business['Id'] == id]
+    def get_business_by_id(cls,business_list, id):
+        found_business = [business for business in business_list if business['Id'] == id]
         return found_business[0]
 
     @classmethod
-    def get_businesses_by_category(cls, category):
-        found_businesses = [business for business in Business.businesses if business['Category'].lower() == category.lower()]
+    def get_businesses_by_category(cls, business_list, category):
+        found_businesses = [business for business in business_list if business['Category'].lower() == category.lower()]
         return found_businesses
 
     @classmethod
-    def get_businesses_by_location(cls, location):
-        found_businesses = [business for business in Business.businesses if business['Location'] == location]
+    def get_businesses_by_location(cls, business_list, location):
+        found_businesses = [business for business in business_list if business['Location'] == location]
         return found_businesses
 
     def write_review(self, description, owner):
@@ -191,21 +196,17 @@ class Review(object):
 
     create_review(), delete_review(), validate_comment()
     """
-    count = 0
+    # count = 0
     def __init__(self, description, owner):
         self.description = description
         self.owner = owner
 
     def create_review(self):
-        Review.count += 1
-        review = {'Id':Review.count, 'Comment':self.description, 'Owner':self.owner}
-        return review
+        # Review.count += 1
+        review = {'Comment':self.description, 'Owner':self.owner}
+        return {'message':'Review written successfuly'}
 
-    def delete_review(self, reviews_list, id):
-        delete_review = [review for review in reviews_list if review['Id' == id]]  
-        if delete_review:
-            reviews_list.remove(delete_review)
-            return True
+
   
 
 
