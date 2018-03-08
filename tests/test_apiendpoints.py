@@ -66,17 +66,17 @@ class TestApi(unittest.TestCase):
         result = self.client().post('/api/auth/login', data=logins)
         self.assertEqual(result.status_code, 200)
 
-    # def test_encode_token(self):
-    #     """Test api encodes token successfuly"""
-    #     logins = {
-    #         "Username":"Peter",
-    #         "Password":"pass123"
-    #     }
-    #     res = self.client().post('/api/auth/register',
-    #     data=self.user)
-    #     self.assertEqual(res.status_code, 201)
-    #     result = self.client().post('/api/auth/login', data=logins)
-    #     self.assertIsInstance(result.data.get('token'), bytes)
+    def test_encode_token(self):
+        """Test api encodes token successfuly"""
+        logins = {
+            "Username":"Peter",
+            "Password":"pass123"
+        }
+        res = self.client().post('/api/auth/register',
+        data=self.user)
+        self.assertEqual(res.status_code, 201)
+        result = self.client().post('/api/auth/login', data=logins)
+        self.assertIsInstance(result.data.get('token'), bytes)
 
     def test_unregistered_user_login(self):
         """Test api cannot login unregistered user"""
