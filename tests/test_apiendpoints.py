@@ -2,11 +2,9 @@
 
 import unittest
 
-from flask import jsonify
-
 from app import create_app
 
-from app.api_v1.models import User, Business
+from app.api_1_0.models import User, Business
 
 class TestApi(unittest.TestCase):
     """This class tests the api endpoints
@@ -30,28 +28,31 @@ class TestApi(unittest.TestCase):
         """Initialize the app and test variables"""
         self.app = create_app('testing')
         self.client = self.app.test_client
-        self.user = {'Username':'Peter', 'Email':'pndungu54@gmail.com', \
-        'Password':'pass123','Confirm Password':'pass123'}
+        # self.user = {'Username':'Peter', 'Email':'pndungu54@gmail.com', \
+        # 'Password':'pass123','Confirm Password':'pass123'}
         self.mock_business = {
             "Name":"James Barber",
             "Description":"We no longer sell bananas",
             "Location":"Kawangware",
             "Category":"fruit vendors"
         }
-        self.mock_review = {'Description':'best mandazis ever', 'owner':self.user.['Username']}
+        # self.mock_review = {'Description':'best mandazis ever', 'owner':self.user['Username']}
         self.app_context = self.app.app_context()
         self.app_context.push()
 
     def tearDown(self):
         self.app_context.pop()
-        del self.user
+        # del self.user
         del self.mock_business
 
     def test_registration(self):
         """Test that api can register a user"""
-        res = self.client().post('/api/auth/register', data=self.user)
+        user = {'Username':'Peter', 'Email':'pndungu54@gmail.com', \
+        'Password':'pass123','Confirm Password':'pass123'}
+        res = self.client().post('/api/auth/register', data=user)
+        print(res)
         self.assertEqual(res.status_code, 201)
-        self.assertIn('ptah', str(res.data)) 
+        self.assertIn('Peter', str(res.data)) 
 
     def test_login(self):
         """Test api can login successfuly registered user"""
@@ -188,7 +189,7 @@ class TestApi(unittest.TestCase):
         response = self.client().post('/api/businesses', \
         data=self.mock_business)
         self.assertEqual(response.status_code, 201)
-        review = {'Description':'Great services','owner':self.user.['Username']}        
+        review = {'Description':'Great services','owner':self.user['Username']}        
         res = self.client().post('/api/businesses/1/reviews', \
         data=review)
         self.assertEqual(res.status_code, 200)
