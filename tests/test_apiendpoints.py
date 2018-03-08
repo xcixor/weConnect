@@ -2,6 +2,8 @@
 
 import unittest
 
+import json
+
 from app import create_app
 
 from app.api_1_0.models import User, Business
@@ -31,10 +33,11 @@ class TestApi(unittest.TestCase):
         self.user = {'Username':'Peter', 'Email':'pndungu54@gmail.com', \
         'Password':'pass123','Confirm Password':'pass123'}
         self.mock_business = {
-            "Name":"James Barber",
-            "Description":"We no longer sell bananas",
-            "Location":"Kawangware",
-            "Category":"fruit vendors"
+        "Name":"brunt-electronics", 
+        "Description":"We sell electronics", 
+        "Category":"electronics", 
+        "Location":"West-Lands", 
+        "Address":"1234-westy", 
         }
         # self.mock_review = {'Description':'best mandazis ever', 'owner':self.user['Username']}
         self.app_context = self.app.app_context()
@@ -53,10 +56,19 @@ class TestApi(unittest.TestCase):
         self.assertEqual(res.status_code, 201)
         self.assertIn('James', str(res.data)) 
 
+    def get_token(self):
+        """Logs the user in to generate a token for protected routes"""
+        logins = {
+            "Username":"Peter",
+            "Password":"pass123"
+        }
+        self.client().post('/api/auth/register', data=self.user)
+        response = self.client().post('/api/auth/login', data=logins)
+        token = json.loads(response.data.decode('UTF-8'))
+        return token.get('token')
+
     def test_login(self):
         """Test api can login successfuly registered user"""
-        # user = {'Username':'Peter', 'Email':'pndungu54@gmail.com', \
-        # 'Password':'pass123','Confirm Password':'pass123'}
         logins = {
             "Username":"Peter",
             "Password":"pass123"
@@ -68,15 +80,17 @@ class TestApi(unittest.TestCase):
 
     def test_encode_token(self):
         """Test api encodes token successfuly"""
-        logins = {
-            "Username":"Peter",
-            "Password":"pass123"
-        }
-        res = self.client().post('/api/auth/register',
-        data=self.user)
-        self.assertEqual(res.status_code, 201)
-        result = self.client().post('/api/auth/login', data=logins)
-        self.assertIsInstance(result.data.get('token'), bytes)
+        # logins = {
+        #     "Username":"Peter",
+        #     "Password":"pass123"
+        # }
+        # res = self.client().post('/api/auth/register',
+        # data=self.user)
+        # self.assertEqual(res.status_code, 201)
+        # result = self.client().post('/api/auth/login', data=logins)
+        # self.assertTrue(json.loads(result.data.decode('UTF-8')))
+        token = self.get_token()
+        self.assertTrue(token)
 
     def test_unregistered_user_login(self):
         """Test api cannot login unregistered user"""
@@ -113,10 +127,13 @@ class TestApi(unittest.TestCase):
 
     def test_create_business(self):
         """Test API can create a business successfuly (POST)"""
+        token = self.get_token()
+        print("Token >>>>", token)
         response = self.client().post('/api/businesses', \
-        data=self.mock_business)
+        data=self.mock_business, headers={'x-access-token': token})
+        print(response)
         self.assertEqual(response.status_code, 201)
-        self.assertIn('James Barber', str(response.data))
+        self.assertIn('brunt-electronics', str(response.data))
 
     def test_update_business(self):
         
