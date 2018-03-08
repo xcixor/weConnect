@@ -171,11 +171,10 @@ def manipulate_business(current_user, bid, **kwargs):
         return{
             'Message': "business {} has been successfully deleted".format(business_found['Name'])
         }, 200
-
-    # elif request.method == 'GET':
-    #     response = jsonify(business_found)
-    #     response.status_code = 200
-    #     return response
+    elif request.method == 'GET':
+        response = jsonify(business_found)
+        response.status_code = 200
+        return response
 
     # else:
     #     # update business
