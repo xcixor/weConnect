@@ -55,8 +55,8 @@ class TestApi(unittest.TestCase):
 
     def test_login(self):
         """Test api can login successfuly registered user"""
-        user = {'Username':'Peter', 'Email':'pndungu54@gmail.com', \
-        'Password':'pass123','Confirm Password':'pass123'}
+        # user = {'Username':'Peter', 'Email':'pndungu54@gmail.com', \
+        # 'Password':'pass123','Confirm Password':'pass123'}
         logins = {
             "Username":"Peter",
             "Password":"pass123"
