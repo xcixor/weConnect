@@ -2,7 +2,7 @@
 
 import unittest
 
-from app.api_v1.models import User
+from app.api_1_0.models import User
 
 class TestUserCase(unittest.TestCase):
     """
@@ -68,13 +68,13 @@ class TestUserCase(unittest.TestCase):
     def test_login(self):
         """Test user can logout successfuly"""
         self.success_user.register_user()
-        response  = self.success_user.login()
+        response  = self.success_user.login('ptah', 'pass123')
         self.assertTrue(response)
 
     def test_logout(self):
         """Test user can logout successfully"""
         self.success_user.register_user()
-        self.success_user.login()
+        self.success_user.login('ptah', 'pass123')
         response = self.success_user.log_out()
         self.assertTrue(response)
 
