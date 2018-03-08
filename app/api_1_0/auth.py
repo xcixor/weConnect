@@ -6,11 +6,13 @@ from app.api_1_0 import api
 
 from app.api_1_0.models import User
 
-from app.api_1_0.errors import bad_request, forbidden
+from app.api_1_0.errors import bad_request, forbidden, unauthorized
 
 import jwt
 
 from datetime import datetime, timedelta
+
+from functools import wraps
 
 @api.route('/auth/register', methods=['POST'])
 def register_user():
@@ -59,3 +61,43 @@ def login():
             return forbidden("Invalid username/password combination")
     else:
         return bad_request("Please provide all the fields")
+
+def auth_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        # verify token
+        token = None
+        #check if x-access-token which is used to store the token is in headers
+        if 'x-access-token' in request.headers:
+            token = request.headers['x-access-token']
+        if not token:
+            return unauthorized('Token missing')
+        try:
+            data = jwt.decode(token, current_app.config.get('SECRET_KEY'))
+            current_user = User.get_user(data['id'])
+        except:
+            return unauthorized('Token is invalid')
+        return f(current_user, *args, **kwargs)
+    return decorated
+
+@api.route('/auth/reset-password', methods=['POST'])
+@auth_required
+def reset_password(current_user):
+    """Resets user password"""
+    if not current_user:
+        return unauthorized('You are not allowed to perform this action')
+    username = str(request.data.get('Username', ''))
+    old_password = str(request.data.get('Previous Password', ''))
+    new_password = str(request.data.get('New Password', ''))
+    if username and old_password and new_password:
+        update_user = User.reset_password(username, old_password, new_password)
+        if update_user:
+            response = jsonify({
+                "Message":"Successfuly changed password"
+            })
+            response.status_code = 200
+            return response
+        else:
+            return forbidden(update_user)
+    else:
+        return bad_request("Provide all fields")

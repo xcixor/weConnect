@@ -71,9 +71,9 @@ class User(object):
         loging_user = [user for user in User.users if user['Username'] == username]
         if loging_user and loging_user[0]['Password'] == password:
             return True
-            
-    def reset_password(self, old_password, new_password):
-        user_to_update = [user for user in User.users if user['Username'] == self.name]
+    @classmethod       
+    def reset_password(cls, username, old_password, new_password):
+        user_to_update = [user for user in User.users if user['Username'] == username]
         if user_to_update:
             if old_password == user_to_update[0]['Password']: 
                 if User.verify_password_length(new_password):
@@ -91,8 +91,10 @@ class User(object):
         return True
 
     @classmethod
-    def get_users(cls):
-        return User.users
+    def get_user(cls, username):
+        user = [user for user in User.users if user['Username'] == username]        
+        return user[0]
+
 class Business(object):
     """Defines a business
     
