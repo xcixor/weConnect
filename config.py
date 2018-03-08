@@ -1,10 +1,17 @@
 """Contains app configurations"""
 
-class Config():
+class Config:
     """
     Contains the common setings that all configuration options must have
     """
     Debug = False
+
+    @staticmethod
+    def init_app(app):
+        """
+        To perform configuration specific initializations
+        """
+        pass
 
 class Development(Config):
     """
