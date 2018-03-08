@@ -71,8 +71,6 @@ class User(object):
         loging_user = [user for user in User.users if user['Username'] == username]
         if loging_user and loging_user[0]['Password'] == password:
             return True
-        else:
-            return {"message":"Invalid username/password combination"}
             
     def reset_password(self, old_password, new_password):
         user_to_update = [user for user in User.users if user['Username'] == self.name]
