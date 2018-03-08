@@ -25,7 +25,7 @@ class TestBusinessCase(unittest.TestCase):
         self.comments = []
         self.business_list = []
         self.success_user = User('ptah', 'pndungu54@gmail.com', 'pass123', 'pass123')        
-        self.mock_business = Business(int(1), "James Barber", "We sell bananas", \
+        self.mock_business = Business("James Barber", "We sell bananas", \
         "fruit vendors", "Kawangware", "1234-Kawangware", self.success_user.name)
         # self.mock_business.create_business(self.business_list)
 
@@ -68,6 +68,7 @@ class TestBusinessCase(unittest.TestCase):
         """Test app can find a business by id"""
         self.mock_business.create_business(self.business_list)
         response = Business.get_business_by_id(self.business_list, 1)
+        print(response)
         self.assertIn('James Barber', response['Name'])
         
         

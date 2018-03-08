@@ -1,6 +1,7 @@
 """Contains classes for modelling the app"""
 import re
 
+import json
 class User(object):
     """Defines an application user
     Attributes:
@@ -112,10 +113,8 @@ class Business(object):
     create_business(), view_business(), 
     update_business(), delete_business(), write_review(), get_all_reviews()
     """
-    # count = 0
 
-    def __init__(self, id, name, description, category, location, address, owner):
-        self.id = id
+    def __init__(self, name, description, category, location, address, owner):
         self.name = name
         self.description = description
         self.category = category
@@ -124,15 +123,25 @@ class Business(object):
         self.owner = owner
         self.reviews = []
 
-    def create_business(self, busines_list):
-        if self.find_business(busines_list):
+    def create_business(self, business_list):
+        if self.find_business(business_list):
             return {"message":"Cannot create duplicate business"}
-        else:    
-            # Business.count += 1        
-            business = {'Id':self.id, "Owner":self.owner, 'Name': self.name, 'Description':self.description, \
+        else:         
+            bid = self.generate_id(business_list)  
+            business = {'Id':bid, "Owner":self.owner, 'Name': self.name, 'Description':self.description, \
             'Category':self.category, 'Location':self.location, 'Reviews':self.reviews, 'Address':self.address}
-            busines_list.append(business)
+            business_list.append(business)
             return True
+    def generate_id(self, business_list, bid=0):
+        # print(json.dump(business_list))
+        if bid == 0:
+            bid = len(business_list) + 1
+        for business in business_list:
+            if business['Id'] == bid:
+                bid += 1
+                self.generate_id(business_list, bid)
+        return bid
+
 
     @classmethod
     def get_all_businesses(cls, business_list):
@@ -161,9 +170,12 @@ class Business(object):
             return False
 
     @classmethod
-    def get_business_by_id(cls,business_list, id):
-        found_business = [business for business in business_list if business['Id'] == id]
-        return found_business[0]
+    def get_business_by_id(cls, business_list, bid):
+        print(business_list)
+        found_business = [business for business in business_list if business['Id'] == bid]
+        if len(found_business)>0:
+            return found_business[0]
+        return {"message":"not found"}
 
     @classmethod
     def get_businesses_by_category(cls, business_list, category):
