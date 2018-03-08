@@ -155,4 +155,46 @@ def create_business(current_user):
             return not_found("There are no businesss in our database")
 
         
+@api.route('/businesses/<int:bid>', methods=['GET', 'PUT', 'DELETE'])
+@auth_required
+def manipulate_business(current_user, bid, **kwargs):
+    if type(bid) != int:
+        return bad_request("Wrong data type")
+    
+    #get business by id
+    business_found = Business.get_business_by_id(business_list, bid)
+    if not business_found:
+        return not_found('That business was not found in our server please check again later')
+    # business = Business(business_found['Name'], business_found['Description'], business_found['Category'], business_found['Location'], business_found['Address'], business_found['Owner'])
+    if request.method == 'DELETE':
+        Business.delete_business(business_list, bid)
+        return{
+            'Message': "business {} has been successfully deleted".format(business_found['Name'])
+        }, 200
 
+    # elif request.method == 'GET':
+    #     response = jsonify(business_found)
+    #     response.status_code = 200
+    #     return response
+
+    # else:
+    #     # update business
+    #     name = str(request.data.get('Name', ''))
+    #     description = str(request.data.get('Description', ''))
+    #     category = str(request.data.get('Category', ''))
+    #     location = str(request.data.get('Location', ''))
+    #     keys = {}
+    #     if name:
+    #         keys['Name'] = name
+    #     if location:
+    #         keys['Location'] = location
+    #     if category:
+    #         keys['Category'] = category
+    #     if description:
+    #         keys['Description'] = description
+    #     for key, value in keys.items():
+    #         kwargs = {key:value}            
+    #         business.edit_business(**kwargs)  
+    #     response = jsonify(Business.find_business_by_id(business_list, id))
+    #     response.status_code = 200
+    #     return response
