@@ -113,7 +113,7 @@ class Business(object):
     create_business(), view_business(), 
     update_business(), delete_business(), write_review(), get_all_reviews()
     """
-
+    
     def __init__(self, name, description, category, location, address, owner):
         self.name = name
         self.description = description
