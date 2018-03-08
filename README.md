@@ -18,7 +18,7 @@
         (myvenv) $    pip install -r requirements.txt
     Once the installed start the app as follows:
         (myvenv) $    python manage.py runserver
-    Navigate to the link provided by the server and start creating recipes!
+    Navigate to the link provided by the server and start creating businesses!
 
 ## Running the Tests
     Run the test as follows:
