@@ -65,11 +65,11 @@ class User(object):
         """Check if email is valid"""
         if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
             return True
-
-    def login(self):
+    @classmethod
+    def login(cls, username, password):
         """Logs a user into his account"""
-        loging_user = [user for user in User.users if user['Username'] == self.name]
-        if self.find_user() and loging_user[0]['Password'] == self.password:
+        loging_user = [user for user in User.users if user['Username'] == username]
+        if loging_user and loging_user[0]['Password'] == password:
             return True
         else:
             return {"message":"Invalid username/password combination"}
