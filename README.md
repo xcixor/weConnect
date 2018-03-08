@@ -1,16 +1,28 @@
 [![Build Status](https://travis-ci.org/xcixor/weConnect.svg?branch=master)](https://travis-ci.org/xcixor/weConnect)
 [![Coverage Status](https://coveralls.io/repos/github/xcixor/weConnect/badge.svg?branch=master)](https://coveralls.io/github/xcixor/weConnect?branch=master)
 
-# What is this app? 
-    WeConnect is a platform that brings businesses and individuals together. It creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.
+### Prerequisites
+    You should have the following software installed
+        python3*
+        virtualenv
+### Installing
+    Clone the project as follows:
+    On the terminal for linux and mac, type: 
+        $    git clone git@github.com:xcixor/weConnect.git
+    This will download the project onto your machine locally
+    After cloning navigate to the root folder and in the terminal create a virtual environment as follows:
+        $    virtualenv 'preferred name of virtual environment'
+    After creating the virtual environment, activate it as folllows:
+        $    source 'your env'/bin/activate
+    After activating the virtual environment, install the app's dependencies as follows:
+        (myvenv) $    pip install -r requirements.txt
+    Once the installed start the app as follows:
+        (myvenv) $    python manage.py runserver
+    Navigate to the link provided by the server and start creating recipes!
 
-# Preliquisites
-    Local Server to host the pages
-
-# Installing
-    Clone the project to your local machine
-    Configure your server to host on any web browser
-    Ensure you type the full path to the index page (/designs/UI/templates)
+## Running the Tests
+    Run the test as follows:
+        (myvenv) $ python manage.py test
 
 # Mockups
 [Uml](/designs/uml.png)
