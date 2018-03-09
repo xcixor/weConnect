@@ -78,17 +78,8 @@ class TestApi(unittest.TestCase):
         result = self.client().post('/api/auth/login', data=logins)
         self.assertEqual(result.status_code, 200)
 
-    def test_encode_token(self):
-        """Test api encodes token successfuly"""
-        # logins = {
-        #     "Username":"Peter",
-        #     "Password":"pass123"
-        # }
-        # res = self.client().post('/api/auth/register',
-        # data=self.user)
-        # self.assertEqual(res.status_code, 201)
-        # result = self.client().post('/api/auth/login', data=logins)
-        # self.assertTrue(json.loads(result.data.decode('UTF-8')))
+    def test_token_exist(self):
+        """Test api creates token successfuly"""
         token = self.get_token()
         self.assertTrue(token)
 
@@ -131,7 +122,6 @@ class TestApi(unittest.TestCase):
         print("Token >>>>", token)
         response = self.client().post('/api/businesses', \
         data=self.mock_business, headers={'x-access-token': token})
-        print(response)
         self.assertEqual(response.status_code, 201)
         self.assertIn('brunt-electronics', str(response.data))
 
@@ -152,13 +142,14 @@ class TestApi(unittest.TestCase):
 
     def test_delete_business(self):
         """Test whether api can delete a business"""
+        token = self.get_token()
         business = {'Name':'Wakanyugi funeral services', \
         'Description':'Laying the body to rest', \
         'Category':'Funeral', 'Location':'Kirinyaga'}        
         res = self.client().post('/api/businesses', data=business)
         self.assertEqual(res.status_code, 201)
         self.assertIn('Wakanyugi funeral services', str(res.data))
-        res = self.client().delete('/api/businesses/1')
+        res = self.client().delete('/api/businesses/1', headers={'x-access-token': token})
         self.assertEqual(res.status_code, 200)
         result = self.client().get('api/businesses/1')
         self.assertEqual(result.status_code, 404)
