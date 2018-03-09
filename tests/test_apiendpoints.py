@@ -139,10 +139,9 @@ class TestApi(unittest.TestCase):
         res = self.client().post('/api/businesses', data=self.mock_business, headers={'x-access-token': token})
         self.assertEqual(res.status_code, 201)      
         response_value = self.client().put('/api/businesses/1', data = {"Location": "Nyeri"}, headers={'x-access-token': token})
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>', response_value)
         self.assertEqual(response_value.status_code, 200)
-        # result = self.client().get('/api/businesses/1')
-        # self.assertIn('Jebi', str(result.data))
+        result = self.client().get('/api/businesses/1', headers={'x-access-token': token})
+        self.assertIn('Nyeri', str(result.data))
 
     def test_delete_business(self):
         """Test whether api can delete a business"""

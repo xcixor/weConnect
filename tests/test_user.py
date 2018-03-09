@@ -45,7 +45,8 @@ class TestUserCase(unittest.TestCase):
         i.e containing special characters"""
         user = User('2@#$#', 'user@yahoo.com', 'pass123', 'pass123')
         response = user.register_user()
-        self.assertEqual(response['message'], 'Username cannot contain special characters')
+        self.assertEqual(response['message'], 
+        'Username cannot contain special characters')
 
     def test_valid_email(self):
         """Test app cannot allow invalid email"""
@@ -63,7 +64,8 @@ class TestUserCase(unittest.TestCase):
         """Test password is greater or equal to six characters!"""
         user = User('Jini', 'jin@g.com','jin1', 'jin1')
         response = user.register_user()
-        self.assertTrue(response['message'], 'Password cannot be less than 6 characters!')
+        self.assertTrue(response['message'], 
+        'Password cannot be less than 6 characters!')
 
     def test_login(self):
         """Test user can logout successfuly"""
@@ -81,10 +83,12 @@ class TestUserCase(unittest.TestCase):
     def test_reset_password(self):
         """Test app can allow reset password"""
         self.success_user.register_user()
-        result = User.reset_password(self.success_user.name,'pass123', '123pass')
+        result = User.reset_password(self.success_user.name,'pass123', 
+        '123pass')
         self.assertEqual(result['message'], 'Password successfully changed')
 
     def test_reset_password_with_wrong_previous_password(self):
         self.success_user.register_user()
-        result = User.reset_password(self.success_user.name, 'wrong345', 'new1234')
+        result = User.reset_password(self.success_user.name, 'wrong345', 
+        'new1234')
         self.assertEqual(result['message'], 'Previous password incorrect')

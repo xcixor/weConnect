@@ -73,7 +73,8 @@ def auth_required(f):
     def decorated(*args, **kwargs):
         # verify token
         token = None
-        #check if x-access-token which is used to store the token is in headers
+        #check if x-access-token which is used to store the token is 
+        # in headers
         if 'x-access-token' in request.headers:
             token = request.headers['x-access-token']
         if not token:
@@ -99,7 +100,8 @@ def reset_password(current_user):
     old_password = str(request.data.get('Previous Password', ''))
     new_password = str(request.data.get('New Password', ''))
     if username and old_password and new_password:
-        update_user = User.reset_password(username, old_password, new_password)
+        update_user = User.reset_password(username, old_password, \
+        new_password)
         if update_user:
             response = jsonify({
                 "Message":"Successfuly changed password"
@@ -135,7 +137,8 @@ def create_business(current_user):
     address = str(request.data.get('Address', ''))
     
     if name and description and category and location and address:
-        business = Business(name, description, category, location, address, current_user['Username'])
+        business = Business(name, description, category, location, address, \
+        current_user['Username'])
         status = business.create_business(business_list)
         if status:
             response = jsonify(status)
@@ -164,12 +167,15 @@ def manipulate_business(current_user, bid, **kwargs):
     #get business by id
     business_found = Business.get_business_by_id(business_list, bid)
     if not business_found:
-        return not_found('That business was not found in our server please check again later')
-    business = Business(business_found['Name'], business_found['Description'], business_found['Category'], business_found['Location'], business_found['Address'], business_found['Owner'])
+        return not_found('That business was not found in our server please \
+        check again later')
+    business = Business(business_found['Name'], business_found['Description'], 
+    business_found['Category'], business_found['Location'], business_found['Address'], business_found['Owner'])
     if request.method == 'DELETE':
         Business.delete_business(business_list, bid)
         return{
-            'Message': "business {} has been successfully deleted".format(business_found['Name'])
+            'Message': "business {} has been successfully \
+            deleted".format(business_found['Name'])
         }, 200
     elif request.method == 'GET':
         response = jsonify(business_found)
@@ -196,19 +202,20 @@ def manipulate_business(current_user, bid, **kwargs):
             keys['Address'] = address
         for key, value in keys.items():
             kwargs = {key:value}            
-        status = business.edit_business(business_list, **kwargs)  
-        if status:
-            response = jsonify({"message":"Business edited successfuly"})
-            response.status_code = 200
-            return response
-        not_found("That business does not exist in our db")
+        business.edit_business(business_list, **kwargs)  
+        response = jsonify({"message":"Business edited successfuly"})
+        response.status_code = 200
+        return response
 
 @api.route('/businesses/<int:bid>/reviews', methods=['POST', 'GET'])
 def business_reviews(bid):
     business_found = Business.get_business_by_id(business_list, bid)
     if not business_found:
-        return not_found('That business was not found in our server please check again later') 
-    business = Business(business_found['Name'], business_found['Description'], business_found['Category'], business_found['Location'], business_found['Address'], business_found['Owner'])
+        return not_found('That business was not found in our server please \
+    check again later') 
+    business = Business(business_found['Name'], business_found['Description'], 
+    business_found['Category'], business_found['Location'], 
+    business_found['Address'], business_found['Owner'])
     if request.method == 'POST':   
         name = str(request.data.get('Email', ''))
         comment = str(request.data.get('Comment', ''))

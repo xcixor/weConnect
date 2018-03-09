@@ -27,7 +27,8 @@ class User(object):
         
     def find_user(self):
         """Checks whether a user exists in the users list"""
-        registered_user = [user for user in User.users if user['Username'].lower() == self.name.lower()]
+        registered_user = [user for user in User.users if user['Username'].lower() \
+        == self.name.lower()]
         if registered_user:
             return True
         return False
@@ -45,7 +46,8 @@ class User(object):
         elif not self.verify_email(self.email):
             return {"message":"Invalid email address!"}
         else:
-            user = {'Username':self.name, 'Email':self.email, 'Password':self.password}
+            user = {'Username':self.name, 'Email':self.email, 
+            'Password':self.password}
             User.users.append(user)
             return True
 
@@ -64,24 +66,28 @@ class User(object):
     @staticmethod
     def verify_email(email):
         """Check if email is valid"""
-        if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
+        if re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", 
+            email):
             return True
     @classmethod
     def login(cls, username, password):
         """Logs a user into his account"""
-        loging_user = [user for user in User.users if user['Username'] == username]
+        loging_user = [user for user in User.users if user['Username'] \
+        == username]
         if loging_user and loging_user[0]['Password'] == password:
             return True
     @classmethod       
     def reset_password(cls, username, old_password, new_password):
-        user_to_update = [user for user in User.users if user['Username'] == username]
+        user_to_update = [user for user in User.users if user['Username'] \
+        == username]
         if user_to_update:
             if old_password == user_to_update[0]['Password']: 
                 if User.verify_password_length(new_password):
                     user_to_update[0]['Password'] = new_password
                     return {'message':'Password successfully changed'}
                 else:
-                    return {"message":"Password cannot be less than 6 characters!"}
+                    return {"message":"Password cannot be less than \
+                    6 characters!"}
             else:
                 return {"message":"Previous password incorrect"}
         else:
@@ -135,7 +141,8 @@ class Business(object):
     update_business(), delete_business(), write_review(), get_all_reviews()
     """
     
-    def __init__(self, name, description, category, location, address, owner):
+    def __init__(self, name, description, category, location, address, \
+        owner):
         self.name = name
         self.description = description
         self.category = category
@@ -149,8 +156,10 @@ class Business(object):
             return {"message":"Cannot create duplicate business"}
         else:         
             bid = self.generate_id(business_list)  
-            business = {'Id':bid, "Owner":self.owner, 'Name': self.name, 'Description':self.description, \
-            'Category':self.category, 'Location':self.location, 'Reviews':self.reviews, 'Address':self.address}
+            business = {'Id':bid, "Owner":self.owner, 'Name': self.name, 
+            'Description':self.description, \
+            'Category':self.category, 'Location':self.location, 
+            'Reviews':self.reviews, 'Address':self.address}
             business_list.append(business)
             return {"message":"{} successfuly created".format(self.name)}
     def generate_id(self, business_list, bid=0):
@@ -169,7 +178,8 @@ class Business(object):
         return business_list
 
     def find_business(self, business_list):
-        found_business = [business for business in business_list if business['Name'].lower() == self.name.lower()]
+        found_business = [business for business in business_list if \
+        business['Name'].lower() == self.name.lower()]
         if found_business:
             return found_business[0]
         else:
@@ -193,19 +203,22 @@ class Business(object):
     @classmethod
     def get_business_by_id(cls, business_list, bid):
         print(business_list)
-        found_business = [business for business in business_list if business['Id'] == bid]
+        found_business = [business for business in business_list if business['Id'] \
+        == bid]
         if len(found_business)>0:
             return found_business[0]
         
 
     @classmethod
     def get_businesses_by_category(cls, business_list, category):
-        found_businesses = [business for business in business_list if business['Category'].lower() == category.lower()]
+        found_businesses = [business for business in business_list if \
+        business['Category'].lower() == category.lower()]
         return found_businesses
 
     @classmethod
     def get_businesses_by_location(cls, business_list, location):
-        found_businesses = [business for business in business_list if business['Location'] == location]
+        found_businesses = [business for business in business_list if \
+        business['Location'] == location]
         return found_businesses
 
     def write_review(self, business_list, description, owner):
@@ -218,10 +231,6 @@ class Business(object):
     def get_all_reviews(self):
         return self.reviews
 
-
-
-# if __name__ =='__main__':
-#     biz = Business('a', 'b', 'c', 'd', 'e', 'f')
 
 
 

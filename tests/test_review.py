@@ -11,8 +11,10 @@ class TestReviewCase(unittest.TestCase):
     test_valid_review()
     """
     def setUp(self):
-        self.success_user = User('ptah', 'pndungu54@gmail.com', 'pass123', 'pass123')        
-        self.review = Review('I didn\'t like your place', self.success_user.name)                
+        self.success_user = User('ptah', 'pndungu54@gmail.com', 
+        'pass123', 'pass123')        
+        self.review = Review('I didn\'t like your place', 
+        self.success_user.name)                
 
     def tearDown(self):
         del self.review
