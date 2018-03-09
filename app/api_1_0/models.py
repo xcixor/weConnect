@@ -100,6 +100,27 @@ class User(object):
     def get_users(cls):
         return User.users
 
+class Review(object):
+    """Defines a review
+    
+    Attributes:
+
+    description(str), owner(str)
+
+    Methods:
+
+    create_review(), delete_review(), validate_comment()
+    """
+
+    def __init__(self, description, owner):
+        self.description = description
+        self.owner = owner
+
+    def create_review(self):
+        # Review.count += 1
+        review = {'Comment':self.description, 'Owner':self.owner}
+        return {'message':'Review written successfuly'}
+
 class Business(object):
     """Defines a business
     
@@ -188,41 +209,20 @@ class Business(object):
         return found_businesses
 
     def write_review(self, business_list, description, owner):
-        business_to_update = self.find_business(business_list) 
-        review = Review(description, owner)   
-        business_review = review.create_review()     
-        business_to_update ['Reviews'].append(business_review) 
-        # business_review = review.create_review()
-        # if business_review:
-        #     self.reviews.append(business_review)
-        #     return {'message':'Review written successfuly'}
+        # review = Review()
+        update_business = self.find_business(business_list)
+        review = {'Comment':description, 'User':owner}
+        update_business['Reviews'].append(review)
+
 
     def get_all_reviews(self):
         return self.reviews
 
-class Review(object):
-    """Defines a review
-    
-    Attributes:
-
-    description(str), owner(str)
-
-    Methods:
-
-    create_review(), delete_review(), validate_comment()
-    """
-
-    def __init__(self, description, owner):
-        self.description = description
-        self.owner = owner
-
-    def create_review(self):
-        # Review.count += 1
-        review = {'Comment':self.description, 'Owner':self.owner}
-        return {'message':'Review written successfuly'}
 
 
-  
+# if __name__ =='__main__':
+#     biz = Business('a', 'b', 'c', 'd', 'e', 'f')
+
 
 
 

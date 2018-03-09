@@ -217,16 +217,15 @@ def reviews_business(bid):
                 # "Your comment":business['Reviews']
             })
             response.status_code = 200
-            print('>>>>>>>>>>>>>>>>>>>>>>>>>>',business_found['Reviews'])
             return response
         else:
             return bad_request("Invalid data provided")
     else:
         # get reviews
-        reviews = business.get_all_reviews()
+        reviews = business_found['Reviews']
         if reviews:
             response = jsonify({
-                "Reviews":business.get_all_reviews()
+                "Reviews":business_found['Reviews']
             })
             response.status_code = 200
             return response
