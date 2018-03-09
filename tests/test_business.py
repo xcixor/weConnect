@@ -92,17 +92,17 @@ class TestBusinessCase(unittest.TestCase):
     def test_add_business_review(self):
         """Test user can write a business review"""
         self.mock_business.create_business(self.business_list)
-        response = self.mock_business.write_review('Loved the place', 
+        response = self.mock_business.write_review(self.business_list, 'Loved the place', 
         self.success_user.name)
-        self.assertEqual(response['message'], 'Review written successfuly')
+        self.assertEqual(response, 'Review written successfuly')
 
     def test_get_all_reviews(self):
         """Test app can get all reviews for a particular business"""
         self.mock_business.create_business(self.business_list)        
-        self.mock_business.write_review('Worst services ever', 
+        self.mock_business.write_review(self.business_list, 'Worst services ever', 
         self.success_user.name)
         initial_length = len(self.mock_business.reviews)
-        self.mock_business.write_review('Impunity of the highest order', 
+        self.mock_business.write_review(self.business_list, 'Impunity of the highest order', 
         self.success_user.name)
         self.assertEqual(initial_length + 1, 2)
     
