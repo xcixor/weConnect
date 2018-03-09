@@ -204,7 +204,7 @@ def manipulate_business(current_user, bid, **kwargs):
         not_found("That business does not exist in our db")
 
 @api.route('/businesses/<int:bid>/reviews', methods=['POST', 'GET'])
-def reviews_business(bid):
+def business_reviews(bid):
     business_found = Business.get_business_by_id(business_list, bid)
     if not business_found:
         return not_found('That business was not found in our server please check again later') 
