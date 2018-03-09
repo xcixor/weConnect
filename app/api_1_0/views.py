@@ -165,7 +165,7 @@ def manipulate_business(current_user, bid, **kwargs):
     business_found = Business.get_business_by_id(business_list, bid)
     if not business_found:
         return not_found('That business was not found in our server please check again later')
-    # business = Business(business_found['Name'], business_found['Description'], business_found['Category'], business_found['Location'], business_found['Address'], business_found['Owner'])
+    business = Business(business_found['Name'], business_found['Description'], business_found['Category'], business_found['Location'], business_found['Address'], business_found['Owner'])
     if request.method == 'DELETE':
         Business.delete_business(business_list, bid)
         return{
@@ -175,25 +175,64 @@ def manipulate_business(current_user, bid, **kwargs):
         response = jsonify(business_found)
         response.status_code = 200
         return response
+    else:
+        # update business
+        name = str(request.data.get('Name', ''))
+        description = str(request.data.get('Description', ''))
+        category = str(request.data.get('Category', ''))
+        location = str(request.data.get('Location', ''))
+        address = str(request.data.get('Address', ''))
+        
+        keys = {}
+        if name:
+            keys['Name'] = name
+        if location:
+            keys['Location'] = location
+        if category:
+            keys['Category'] = category
+        if description:
+            keys['Description'] = description
+        if address:
+            keys['Address'] = address
+        for key, value in keys.items():
+            kwargs = {key:value}            
+            business.edit_business(**kwargs)  
+        response = jsonify(Business.get_business_by_id(business_list, id))
+        response.status_code = 200
+        return response
 
-    # else:
-    #     # update business
-    #     name = str(request.data.get('Name', ''))
-    #     description = str(request.data.get('Description', ''))
-    #     category = str(request.data.get('Category', ''))
-    #     location = str(request.data.get('Location', ''))
-    #     keys = {}
-    #     if name:
-    #         keys['Name'] = name
-    #     if location:
-    #         keys['Location'] = location
-    #     if category:
-    #         keys['Category'] = category
-    #     if description:
-    #         keys['Description'] = description
-    #     for key, value in keys.items():
-    #         kwargs = {key:value}            
-    #         business.edit_business(**kwargs)  
-    #     response = jsonify(Business.find_business_by_id(business_list, id))
-    #     response.status_code = 200
-    #     return response
+@api.route('/businesses/<int:bid>/reviews', methods=['POST', 'GET'])
+def reviews_business(bid):
+    business_found = Business.get_business_by_id(business_list, bid)
+    if not business_found:
+        return not_found('That business was not found in our server please check again later') 
+    business = Business(business_found['Name'], business_found['Description'], business_found['Category'], business_found['Location'], business_found['Address'], business_found['Owner'])
+    if request.method == 'POST':   
+        name = str(request.data.get('Email', ''))
+        comment = str(request.data.get('Comment', ''))
+        if name and comment:
+            business.write_review(business_list, comment, name)
+            response = jsonify({
+                "message":"success"
+                # "Your comment":business['Reviews']
+            })
+            response.status_code = 200
+            print('>>>>>>>>>>>>>>>>>>>>>>>>>>',business_found['Reviews'])
+            return response
+        else:
+            return bad_request("Invalid data provided")
+    else:
+        # get reviews
+        reviews = business.get_all_reviews()
+        if reviews:
+            response = jsonify({
+                "Reviews":business.get_all_reviews()
+            })
+            response.status_code = 200
+            return response
+        else:
+            response = jsonify({
+                "message":"No reviews for this business"
+            })
+            response.status_code = 404
+            return response

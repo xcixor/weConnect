@@ -187,12 +187,15 @@ class Business(object):
         found_businesses = [business for business in business_list if business['Location'] == location]
         return found_businesses
 
-    def write_review(self, description, owner):
-        review = Review(description, owner)
-        business_review = review.create_review()
-        if business_review:
-            self.reviews.append(business_review)
-            return {'message':'Review written successfuly'}
+    def write_review(self, business_list, description, owner):
+        business_to_update = self.find_business(business_list) 
+        review = Review(description, owner)   
+        business_review = review.create_review()     
+        business_to_update ['Reviews'].append(business_review) 
+        # business_review = review.create_review()
+        # if business_review:
+        #     self.reviews.append(business_review)
+        #     return {'message':'Review written successfuly'}
 
     def get_all_reviews(self):
         return self.reviews
@@ -208,7 +211,7 @@ class Review(object):
 
     create_review(), delete_review(), validate_comment()
     """
-    # count = 0
+
     def __init__(self, description, owner):
         self.description = description
         self.owner = owner
