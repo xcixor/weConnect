@@ -124,42 +124,42 @@ def log_out(current_user):
     response.status_code = 201
     return response
 
-@api.route('/businesses', methods=['POST', 'GET'])
+@api.route('/businesses', methods=['POST'])
 @auth_required
 def create_business(current_user):
     """"""
-    if request.method == 'POST':
-        name = str(request.data.get('Name', ''))
-        description = str(request.data.get('Description', ''))
-        category = str(request.data.get('Category', ''))
-        location = str(request.data.get('Location', ''))
-        address = str(request.data.get('Address', ''))
-        # owner = str(request.data.get('Owner', ''))
-       
-        if name and description and category and location and address:
-            business = Business(name, description, category, location, address, current_user['Username'])
-            business.create_business(business_list)
-            response = jsonify(Business.get_business_by_id(business_list, 1))
+    name = str(request.data.get('Name', ''))
+    description = str(request.data.get('Description', ''))
+    category = str(request.data.get('Category', ''))
+    location = str(request.data.get('Location', ''))
+    address = str(request.data.get('Address', ''))
+    
+    if name and description and category and location and address:
+        business = Business(name, description, category, location, address, current_user['Username'])
+        status = business.create_business(business_list)
+        if status:
+            response = jsonify(status)
             response.status_code = 201
             return response
         else:
-            return forbidden('Required fields are missing')
+            bad_request(status)
     else:
-        # Get businesss
-        business = business.get_businesss()
-        if business:
-            response =jsonify(business)
-            response.status_code = 200
-            return response
-        else:
-            return not_found("There are no businesss in our database")
-
+        return forbidden('Required fields are missing')
+@api.route('/businesses', methods=['GET'])
+def retrieve_businesses():
+    businesses = business_list
+    if businesses:
+        response =jsonify(businesses)
+        response.status_code = 200
+        return response
+    else:
+        return not_found("There are no businesss in our database")
         
 @api.route('/businesses/<int:bid>', methods=['GET', 'PUT', 'DELETE'])
 @auth_required
 def manipulate_business(current_user, bid, **kwargs):
-    if type(bid) != int:
-        return bad_request("Wrong data type")
+    # if type(bid) != int:
+    #     return bad_request("Wrong data type")
     
     #get business by id
     business_found = Business.get_business_by_id(business_list, bid)
@@ -196,10 +196,12 @@ def manipulate_business(current_user, bid, **kwargs):
             keys['Address'] = address
         for key, value in keys.items():
             kwargs = {key:value}            
-            business.edit_business(**kwargs)  
-        response = jsonify(Business.get_business_by_id(business_list, id))
-        response.status_code = 200
-        return response
+        status = business.edit_business(business_list, **kwargs)  
+        if status:
+            response = jsonify({"message":"Business edited successfuly"})
+            response.status_code = 200
+            return response
+        not_found("That business does not exist in our db")
 
 @api.route('/businesses/<int:bid>/reviews', methods=['POST', 'GET'])
 def reviews_business(bid):
@@ -214,7 +216,6 @@ def reviews_business(bid):
             business.write_review(business_list, comment, name)
             response = jsonify({
                 "message":"success"
-                # "Your comment":business['Reviews']
             })
             response.status_code = 200
             return response

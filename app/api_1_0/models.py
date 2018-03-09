@@ -152,7 +152,7 @@ class Business(object):
             business = {'Id':bid, "Owner":self.owner, 'Name': self.name, 'Description':self.description, \
             'Category':self.category, 'Location':self.location, 'Reviews':self.reviews, 'Address':self.address}
             business_list.append(business)
-            return True
+            return {"message":"{} successfuly created".format(self.name)}
     def generate_id(self, business_list, bid=0):
         # print(json.dump(business_list))
         if bid == 0:
@@ -196,7 +196,7 @@ class Business(object):
         found_business = [business for business in business_list if business['Id'] == bid]
         if len(found_business)>0:
             return found_business[0]
-        return {"message":"not found"}
+        
 
     @classmethod
     def get_businesses_by_category(cls, business_list, category):
