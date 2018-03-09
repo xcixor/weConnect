@@ -13,7 +13,7 @@ class User(object):
     methods
 
     create_account(), login(), log_out(), reset_password(), 
-    validate_email(), find_user(), 
+    validate_email(), find_user()
     """
     users = []
 
@@ -41,11 +41,11 @@ class User(object):
         elif self.password != self.confirm_password:
             return {"message":"Passwords don't match!"}
         elif not self.verify_username(self.name):
-            return {"message":"Username cannot contain special characters" } 
+            return {"message":"Username cannot contain special characters" }
         elif not self.verify_email(self.email):
             return {"message":"Invalid email address!"}
         else:
-            user = {'Username':self.name, 'Email':self.email, 
+            user = {'Username':self.name, 'Email':self.email,
             'Password':self.password}
             User.users.append(user)
             return True
@@ -98,7 +98,7 @@ class User(object):
 
     @classmethod
     def get_user(cls, username):
-        user = [user for user in User.users if user['Username'] == username]        
+        user = [user for user in User.users if user['Username'] == username]
         return user[0]
 
     @classmethod
@@ -120,7 +120,7 @@ class Review(object):
     def __init__(self, description, owner):
         self.description = description
         self.owner = owner
-
+        
     def create_review(self):
         # Review.count += 1
         review = {'Comment':self.description, 'Owner':self.owner}
@@ -153,23 +153,23 @@ class Business(object):
     def create_business(self, business_list):
         if self.find_business(business_list):
             return {"message":"Cannot create duplicate business"}
-        else:         
-            bid = self.generate_id(business_list)  
-            business = {'Id':bid, "Owner":self.owner, 'Name': self.name, 
+        else:
+            business_id = self.generate_id(business_list)  
+            business = {'Id':business_id, "Owner":self.owner, 'Name': self.name, 
             'Description':self.description, \
             'Category':self.category, 'Location':self.location, 
             'Reviews':self.reviews, 'Address':self.address}
             business_list.append(business)
             return {"message":"{} successfuly created".format(self.name)}
-    def generate_id(self, business_list, bid=0):
+    def generate_id(self, business_list, business_id=0):
         # print(json.dump(business_list))
-        if bid == 0:
-            bid = len(business_list) + 1
+        if business_id == 0:
+            business_id = len(business_list) + 1
         for business in business_list:
-            if business['Id'] == bid:
-                bid += 1
-                self.generate_id(business_list, bid)
-        return bid
+            if business['Id'] == business_id:
+                business_id += 1
+                self.generate_id(business_list, business_id)
+        return business_id
 
 
     @classmethod
@@ -200,10 +200,10 @@ class Business(object):
             return False
 
     @classmethod
-    def get_business_by_id(cls, business_list, bid):
+    def get_business_by_id(cls, business_list, business_id):
         print(business_list)
         found_business = [business for business in business_list if business['Id'] \
-        == bid]
+        == business_id]
         if len(found_business)>0:
             return found_business[0]
         
