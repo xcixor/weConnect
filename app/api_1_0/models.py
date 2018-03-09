@@ -1,7 +1,6 @@
 """Contains classes for modelling the app"""
 import re
 
-import json
 class User(object):
     """Defines an application user
     Attributes:
@@ -222,10 +221,11 @@ class Business(object):
         return found_businesses
 
     def write_review(self, business_list, description, owner):
-        # review = Review()
         update_business = self.find_business(business_list)
-        review = {'Comment':description, 'User':owner}
-        update_business['Reviews'].append(review)
+        if update_business:
+            review = {'Comment':description, 'User':owner}
+            update_business['Reviews'].append(review)
+            return 'Review written successfuly'
 
 
     def get_all_reviews(self):
