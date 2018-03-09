@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/xcixor/weConnect.svg?branch=master)](https://travis-ci.org/xcixor/weConnect)
-[![Coverage Status](https://coveralls.io/repos/github/xcixor/weConnect/badge.svg?branch=master)](https://coveralls.io/github/xcixor/weConnect?branch=master)
+[![Build Status](https://travis-ci.org/xcixor/weConnect.svg?branch=develop)](https://travis-ci.org/xcixor/weConnect)
+[![Coverage Status](https://coveralls.io/repos/github/xcixor/weConnect/badge.svg?branch=develop)](https://coveralls.io/github/xcixor/weConnect?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/19e2cda2bde6eac40512/maintainability)](https://codeclimate.com/github/xcixor/weConnect/maintainability)
 
 ### Prerequisites
