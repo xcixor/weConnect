@@ -71,6 +71,9 @@ def login():
 def auth_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
+        """
+        Wrapper to check user authorization
+        """
         # verify token
         token = None
         #check if x-access-token which is used to store the token is 
@@ -116,6 +119,9 @@ def reset_password(current_user):
 @api.route('/auth/logout', methods=['POST'])
 @auth_required
 def log_out(current_user):
+    """
+    Logs a user from their account
+    """
     if not current_user:
         return unauthorized('You are not allowed to perform this action')
     token = request.headers['x-access-token']
@@ -129,7 +135,9 @@ def log_out(current_user):
 @api.route('/businesses', methods=['POST'])
 @auth_required
 def create_business(current_user):
-    """"""
+    """
+    Creates a business
+    """
     name = str(request.data.get('Name', ''))
     description = str(request.data.get('Description', ''))
     category = str(request.data.get('Category', ''))
@@ -150,6 +158,9 @@ def create_business(current_user):
         return forbidden('Required fields are missing')
 @api.route('/businesses', methods=['GET'])
 def retrieve_businesses():
+    """
+    Retrieves all the business
+    """
     businesses = business_list
     if businesses:
         response =jsonify(businesses)
@@ -161,6 +172,9 @@ def retrieve_businesses():
 @api.route('/businesses/<int:bid>', methods=['GET', 'PUT', 'DELETE'])
 @auth_required
 def manipulate_business(current_user, bid, **kwargs):
+    """
+    Enables edit, and deletion of a business
+    """
     # if type(bid) != int:
     #     return bad_request("Wrong data type")
     
@@ -209,6 +223,9 @@ def manipulate_business(current_user, bid, **kwargs):
 
 @api.route('/businesses/<int:bid>/reviews', methods=['POST', 'GET'])
 def business_reviews(bid):
+    """
+    Provides logic to write reviews and retrieve a businesses reviews
+    """
     business_found = Business.get_business_by_id(business_list, bid)
     if not business_found:
         return not_found('That business was not found in our server please \
