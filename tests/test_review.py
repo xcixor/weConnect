@@ -14,12 +14,13 @@ class TestReviewCase(unittest.TestCase):
         self.success_user = User('ptah', 'pndungu54@gmail.com', 
         'pass123', 'pass123')        
         self.review = Review('I didn\'t like your place', 
-        self.success_user.name)                
+        self.success_user.name)    
+        self.reviews = []            
 
     def tearDown(self):
         del self.review
 
     def test_create_review(self):
         """Test app can create review"""
-        response = self.review.create_review()
+        response = self.review.create_review(self.reviews)
         self.assertEqual(response['message'], 'Review written successfuly')
