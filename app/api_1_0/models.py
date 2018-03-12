@@ -6,14 +6,11 @@ class User(object):
     
     Attributes:
 
-    users(list) - a list of application users
-
     methods
 
     create_account(), login(), log_out(), reset_password(), 
     validate_email(), find_user()
     """
-    users = []
 
     def __init__(self, username, email, password, confirm_password):
         """Initializes the app
@@ -32,20 +29,20 @@ class User(object):
         self.confirm_password = confirm_password
         self.login_status = False
         
-    def find_user(self):
+    def find_user(self, user_list):
         """Checks whether a user exists in the users list
         
         Returns:
 
         True if user is in the users list, False otherwise
         """
-        registered_user = [user for user in User.users if user['Username'].lower() \
+        registered_user = [user for user in user_list if user['Username'].lower() \
         == self.name.lower()]
         if registered_user:
             return True
         return False
 
-    def register_user(self):
+    def register_user(self, user_list):
         """Creates user account
         
         Returns:
@@ -56,7 +53,7 @@ class User(object):
         
 
         """
-        if self.find_user():
+        if self.find_user(user_list):
             return {"message":"User already exist!"}
         elif not self.verify_password_length(self.password):
             return {"message":"Password cannot be less than 6 characters!"}
@@ -69,7 +66,7 @@ class User(object):
         else:
             user = {'Username':self.name, 'Email':self.email,
             'Password':self.password}
-            User.users.append(user)
+            user_list.append(user)
             return True
 
     @staticmethod
@@ -106,26 +103,26 @@ class User(object):
             email):
             return True
     @classmethod
-    def login(cls, username, password):
+    def login(cls, user_list,username, password):
         """Logs a user into his account
         
         Returns:
 
         True if user is successfuly logged in
         """
-        loging_user = [user for user in User.users if user['Username'] \
+        loging_user = [user for user in user_list if user['Username'] \
         == username]
         if loging_user and loging_user[0]['Password'] == password:
             return True
     @classmethod       
-    def reset_password(cls, username, old_password, new_password):
+    def reset_password(cls, user_list, username, old_password, new_password):
         """Resets a user's password
 
         Returns:
 
         message: To tell the status of the change
         """
-        user_to_update = [user for user in User.users if user['Username'] \
+        user_to_update = [user for user in user_list if user['Username'] \
         == username]
         if user_to_update:
             if old_password == user_to_update[0]['Password']: 
@@ -151,25 +148,25 @@ class User(object):
         return True
 
     @classmethod
-    def get_user(cls, username):
+    def get_user(cls, user_list, username):
         """Retrieves a user for the users list
 
         Returns:
 
         user: dictionary containing user's details
         """
-        user = [user for user in User.users if user['Username'] == username]
+        user = [user for user in user_list if user['Username'] == username]
         return user[0]
 
     @classmethod
-    def get_users(cls):
+    def get_users(cls, user_list):
         """Retrieves all users from the users list
         
         Returns:
 
         users: List containing all the app users
         """
-        return User.users
+        return user_list
 
 class Review(object):
     """Defines a review
