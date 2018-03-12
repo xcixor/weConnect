@@ -54,7 +54,7 @@ class TestApi(unittest.TestCase):
         """Test that api can register a user"""
         user = {'Username':'James', 'Email':'pndungu54@gmail.com', \
         'Password':'pass123','Confirm Password':'pass123'}
-        response = self.client().post('/api/auth/register', data=user)
+        response = self.client().post('/api/v1/auth/register', data=user)
         self.assertEqual(response.status_code, 201)
         self.assertIn('James', str(response.data)) 
 
@@ -64,8 +64,8 @@ class TestApi(unittest.TestCase):
             "Username":"Peter",
             "Password":"pass123"
         }
-        self.client().post('/api/auth/register', data=self.user)
-        response = self.client().post('/api/auth/login', data=logins)
+        self.client().post('/api/v1/auth/register', data=self.user)
+        response = self.client().post('/api/v1/auth/login', data=logins)
         token = json.loads(response.data.decode('UTF-8'))
         return token.get('token')
 
@@ -74,13 +74,13 @@ class TestApi(unittest.TestCase):
         token = self.get_token()        
         user = {'Username':'Lianca', 'Email':'pndungu54@gmail.com', \
         'Password':'pass123','Confirm Password':'pass123'}
-        response = self.client().post('/api/auth/register', data=user)
+        response = self.client().post('/api/v1/auth/register', data=user)
         self.assertEqual(response.status_code, 201)
         logins = {
             "Username":"Lianca",
             "Password":"pass123"
         }
-        result = self.client().post('/api/auth/login', data=logins)
+        result = self.client().post('/api/v1/auth/login', data=logins)
         self.assertEqual(result.status_code, 200)
 
     def test_token_exist(self):
@@ -94,7 +94,7 @@ class TestApi(unittest.TestCase):
             "Username":"kim",
             "Password":"pass456"
         }
-        response = self.client().post('/api/auth/login', data=logins)
+        response = self.client().post('/api/v1/auth/login', data=logins)
         self.assertEqual(response.status_code, 403)
 
     def test_logout(self):
@@ -102,12 +102,12 @@ class TestApi(unittest.TestCase):
         token = self.get_token()               
         user = {'Username':'Kim', 'Email':'pndungu54@gmail.com', \
         'Password':'pass123','Confirm Password':'pass123'}
-        response = self.client().post('/api/auth/register', data=user)
+        response = self.client().post('/api/v1/auth/register', data=user)
         self.assertEqual(response.status_code, 201)
-        # self.client().post('/api/auth/logout', headers={'x-access-token': token})
-        # response = self.client().post('/api/businesses', \
-        # data=self.mock_business, headers={'x-access-token': token})
-        # self.assertEqual(response.status_code, 403)
+        self.client().post('/api/v1/auth/logout', headers={'x-access-token': token})
+        response = self.client().post('/api/v1/businesses', \
+        data=self.mock_business, headers={'x-access-token': token})
+        self.assertEqual(response.status_code, 401)
 
 
     def test_reset_password(self):
@@ -115,20 +115,21 @@ class TestApi(unittest.TestCase):
         token = self.get_token()        
         user = {'Username':'Ciru', 'Email':'pndungu54@gmail.com', \
         'Password':'pass123','Confirm Password':'pass123'}
-        response = self.client().post('/api/auth/register', data=user)
+        response = self.client().post('/api/v1/auth/register', data=user)
         self.assertEqual(response.status_code, 201)        
         logins = {
-            "Username":"Jim",
+            "Username":"Peter",
             "Previous Password":"pass123",
-            "New Password":"pass123"            
+            "New Password":"pass456"            
         }
-        response = self.client().post('/api/auth/reset-password', data=logins, headers={'x-access-token': token})
-        self.assertEqual(response.status_code, 200)
+        print('>>>>>>>>>>>',response.data)
+        result = self.client().post('/api/v1/auth/reset-password', data=logins, headers={'x-access-token': token})
+        self.assertEqual(result.status_code, 200)
 
     def test_create_business(self):
         """Test API can create a business successfuly (POST)"""
         token = self.get_token()
-        response = self.client().post('/api/businesses', \
+        response = self.client().post('/api/v1/businesses', \
         data=self.mock_business, headers={'x-access-token': token})
         self.assertEqual(response.status_code, 201)
         self.assertIn('brunt-electronics', str(response.data))
@@ -136,19 +137,19 @@ class TestApi(unittest.TestCase):
     def test_update_business(self):
         """Test api can update a business"""
         token = self.get_token()       
-        response = self.client().post('/api/businesses', data=self.mock_business, headers={'x-access-token': token})
+        response = self.client().post('/api/v1/businesses', data=self.mock_business, headers={'x-access-token': token})
         self.assertEqual(response.status_code, 201)      
-        response_value = self.client().put('/api/businesses/1', data = {"Location": "Nyeri"}, headers={'x-access-token': token})
+        response_value = self.client().put('/api/v1/businesses/1', data = {"Location": "Nyeri"}, headers={'x-access-token': token})
         self.assertEqual(response_value.status_code, 200)
-        result = self.client().get('/api/businesses/1', headers={'x-access-token': token})
+        result = self.client().get('/api/v1/businesses/1', headers={'x-access-token': token})
         self.assertIn('Nyeri', str(result.data))
 
     def test_delete_business(self):
         """Test whether api can delete a business"""
         token = self.get_token()       
-        response = self.client().post('/api/businesses', data=self.mock_business, headers={'x-access-token': token})
+        response = self.client().post('/api/v1/businesses', data=self.mock_business, headers={'x-access-token': token})
         self.assertEqual(response.status_code, 201)
-        response = self.client().delete('/api/businesses/1', headers={'x-access-token': token})
+        response = self.client().delete('/api/v1/businesses/1', headers={'x-access-token': token})
         self.assertEqual(response.status_code, 200)
         result = self.client().get('api/businesses/1', headers={'x-access-token': token})
         self.assertEqual(result.status_code, 404)
@@ -156,44 +157,44 @@ class TestApi(unittest.TestCase):
     def test_view_businesses(self):
         """Test that the api can retrieve all businesses"""
         token = self.get_token()               
-        response = self.client().post('/api/businesses', \
+        response = self.client().post('/api/v1/businesses', \
         data=self.mock_business, headers={'x-access-token': token})
         self.assertEqual(response.status_code, 201)
-        response = self.client().get('/api/businesses')
+        response = self.client().get('/api/v1/businesses')
         self.assertEqual(response.status_code, 200)
         self.assertIn('electronics', str(response.data))
 
     def test_get_business_by_id(self):
         """Test api can retrieve a business by id"""
         token = self.get_token()        
-        response = self.client().post('/api/businesses', \
+        response = self.client().post('/api/v1/businesses', \
         data=self.mock_business, headers={'x-access-token': token})
         self.assertEqual(response.status_code, 201)
-        result = self.client().get('/api/businesses/1', headers={'x-access-token': token})       
+        result = self.client().get('/api/v1/businesses/1', headers={'x-access-token': token})       
         self.assertEqual(result.status_code, 200)
         self.assertIn('brunt-electronics', str(result.data))
 
     def test_write_review(self):
         """Test api can allow user to write a review"""
         token = self.get_token()        
-        response = self.client().post('/api/businesses', \
+        response = self.client().post('/api/v1/businesses', \
         data=self.mock_business, headers={'x-access-token': token})
         self.assertEqual(response.status_code, 201)
-        response = self.client().post('/api/businesses/1/reviews', \
+        response = self.client().post('/api/v1/businesses/1/reviews', \
         data=self.mock_review)
         self.assertEqual(response.status_code, 200)
         self.assertIn('success', str(response.data))
 
     def retrieve_business_reviews(self):
         """Test api can retrieve all business reviews"""
-        response = self.client().post('/api/businesses', \
+        response = self.client().post('/api/v1/businesses', \
         data=self.mock_business)
         self.assertEqual(response.status_code, 201)
         review = {'Description':'Great services','owner':self.user['Username']}        
-        response = self.client().post('/api/businesses/1/reviews', \
+        response = self.client().post('/api/v1/businesses/1/reviews', \
         data=review)
         self.assertEqual(response.status_code, 200)
-        result = self.client().get('/api/businesses/1/reviews')
+        result = self.client().get('/api/v1/businesses/1/reviews')
         self.assertIn('Great services', str(result.data))
 
     

@@ -14,6 +14,8 @@ from datetime import datetime, timedelta
 
 from functools import wraps
 
+users_list = []
+
 black_list = []
 
 business_list = []
@@ -29,7 +31,7 @@ def register_user():
     confirm_password = str(request.data.get('Confirm Password', ''))
     if username and email and password and confirm_password:
         user = User(username, email, password, confirm_password)
-        user_created = user.register_user()
+        user_created = user.register_user(users_list)
         if user_created == True:      
             response = jsonify({
                 "Message":"{} has successfuly created an account"\
@@ -48,7 +50,7 @@ def login():
     username = str(request.data.get('Username', ''))
     password = str(request.data.get('Password', ''))
     if username and password:
-        if User.login(username, password):
+        if User.login(users_list, username, password):
             # generate  token to manage user's session
             token = jwt.encode({
                 'id':username,
@@ -84,7 +86,7 @@ def auth_required(f):
             return unauthorized('Token missing')
         try:
             data = jwt.decode(token, current_app.config.get('SECRET_KEY'))
-            current_user = User.get_user(data['id'])
+            current_user = User.get_user(users_list, data['id'])
         except:
             return unauthorized('Token is invalid')
         if token in black_list:
@@ -103,7 +105,7 @@ def reset_password(current_user):
     old_password = str(request.data.get('Previous Password', ''))
     new_password = str(request.data.get('New Password', ''))
     if username and old_password and new_password:
-        update_user = User.reset_password(username, old_password, \
+        update_user = User.reset_password(users_list, username, old_password, \
         new_password)
         if update_user:
             response = jsonify({
