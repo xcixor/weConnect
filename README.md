@@ -47,6 +47,8 @@
 | /api/businesses/&lt;business_id&gt;/reviews  |   POST     | Add review for a business |    FALSE        |
 | /api/businesses/&lt;business_id&gt;/reviews  |   GET      | Retrieve business reviews |    FALSE        |   
 
+##Documentation
+The documentation for the api can found [here](https://weconnect5.docs.apiary.io/#)
 ## Testing the api
     To test the above endpoints you need to have a tool like postman or Insomnia REST Client.
     Make requests to the api endpoints above to build and manage businesses
