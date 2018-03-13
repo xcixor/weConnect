@@ -1,0 +1,182 @@
+FORMAT: 1A
+HOST: https://weconnect-2.herokuapp.com/api
+
+# we-connect
+
+WeConnect provides a platform that brings businesses and individuals together. This platform 
+creates awareness for businesses and gives the users the ability to write reviews about the 
+businesses they have interacted with. 
+
+## Register[/auth/register]
+### Register new user [POST]
+Registers new user by providing the username, email, password and confirmation password.
+The username should be unique, not containe special characters except underscores, the email should be valid and 
+the password should not be less than 6 characters.
++ Request (application/json)
+
+        {
+            "Username": "user_1",
+            "Email": "user_1@gmail.com",
+            "Password": "pass123",
+            "Confirm Password":"pass123"
+        }
+        
++ Response 201 (application/json)
+
+        {
+             "Message": "user_1 has successfuly created an account"
+        }
+        
+##Login[/auth/login]
+###Login Registered User
+Log in a registered user using their username and password.
+On successful login a token is generated and used to access other routes on the api.
++ Request (application/json)
+
+        {
+            "Username":"user_1",
+            "Password":"pass123"
+        }
+        
++ Response 201 (application/json)
+
+        {
+             "Message": "user_1 has successfuly logged in"
+        }
+        
+##Logout[/auth/logout]
+###Logout User
+Logs a user from their account and blacklists their token so that it cannot be user again
+        
++ Response 200 (application/json)
+
+        {
+             "Message": "Logged out"
+        }
+        
+##Reset Password[/auth/reset-password]
+###Login Registered User
+Log in a registered user using their username and password.
+On successful login a token is generated and used to access other routes on the api.
++ Request (application/json)
+    + Headers
+            x-access-token: "a token"
+        
+    + Body
+
+        {
+            "Username":"user_1",
+            "Previous Password":"pass123",
+            "New Password":"pass456"
+        }
+        
++ Response 200 (application/json)
+
+        {
+             "Message": "Successfuly changed password"
+        }
+        
+##Businesses[/businesses]
+### Create a new business [POST]
+
+Create a shopping list by providing a name and a description (optional).
+
++ Request (application/json)
+    + Headers
+            x-access-token: "a token"
+        
+    + Body
+    
+        {
+        
+            "Name": "Jane's Cafe",
+            "Description": "Some description",
+            "Category":"food",
+            "Location":"Nyeri",
+            "Address":"123-nyeri"
+        }
+        
++ Response 201 (application/json)
+
+        {
+            "message": " Jane's Cafe successfuly created"
+        }
+###Retrieve all businesses[GET]
+Get all businesses
++ Response 200 (application/json)
+
+        [
+            {
+                "Name": "Jane's Cafe",
+                "Description": "Some description",
+                "Category":"food",
+                "Location":"Nyeri",
+                "Address":"123-nyeri"
+            }
+        ]
+
+###Delete a business[DELETE]
+Remove a business from the list
++ Response 200 (application/json)
+    + Headers
+            x-access-token: "a token"
+        
+    + Body
+
+        {
+            "Message": " Jane's Cafe has been successfully deleted"
+        }
+
+###Edit a business profile[PUT]
+Edit a business using its id by providing the fields to edit
++ Request (application/json)
+    + Headers
+            x-access-token: "a token"
+        
+    + Body
+
+        {
+            "Location":"Paradise",
+            "Category":"another category"
+        }
+        
++ Response 200 (application/json)
+
+        {
+             "Message": "Business edited successfuly"
+        }
+###Search business by id [GET]
+Search for a business by providing the id
++ Response 200 (application/json)
+
+        {
+                "Name": "Jane's Cafe",
+                "Description": "Some description",
+                "Category":"food",
+                "Location":"Nyeri",
+                "Address":"123-nyeri"
+        }
+##Write a Review[/businesses/id/reviews]
+###Write a business review[POST]
+Provide email and then write the comment
++ Request (application/json)
+
+        {
+            "Email":"fatjoe@gmail.com",
+            "Comment":"A comment"
+        }
+        
++ Response 201 (application/json)
+
+        {
+             "Message": "success"
+        }
+###View all the reviews of a business[GET]
++ Response (application/json)
+        [
+
+            {
+                "Email":"fatjoe@gmail.com",
+                "Comment":"A comment"
+            }
+        ]
