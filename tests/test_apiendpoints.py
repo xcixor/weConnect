@@ -30,48 +30,61 @@ class TestApi(unittest.TestCase):
         """Initialize the app and test variables"""
         self.app = create_app('testing')
         self.client = self.app.test_client
-        self.user = {'Username':'Peter', 'Email':'pndungu54@gmail.com', \
-        'Password':'pass123','Confirm Password':'pass123'}
+        self.user = {       
+                    'Username':'Peter', 
+                    'Email':'pndungu54@gmail.com', 
+                    'Password':'pass123',
+                    'Confirm Password':'pass123'
+                    }
+        self.logins = {
+                        "Username":"Peter",
+                        "Password":"pass123"
+                     }
         self.mock_business = {
-        "Name":"brunt-electronics", 
-        "Description":"We sell electronics", 
-        "Category":"electronics", 
-        "Location":"West-Lands", 
-        "Address":"1234-westy", 
-        }
+                    "Name":"brunt-electronics", 
+                    "Description":"We sell electronics", 
+                    "Category":"electronics", 
+                    "Location":"West-Lands", 
+                    "Address":"1234-westy", 
+                    }
         self.mock_review = { "Email":"p@g.com", "Comment":"sth"}
         self.app_context = self.app.app_context()
         self.app_context.push()
 
     def tearDown(self):
         self.app_context.pop()
-        # del self.user
         del self.mock_business
-        del self.mock_review
+        del self.mock_review   
         del self.user
+        del self.logins
 
     def test_registration(self):
         """Test that api can register a user"""
-        user = {'Username':'James', 'Email':'pndungu54@gmail.com', \
-        'Password':'pass123','Confirm Password':'pass123'}
-        response = self.client().post('/api/v1/auth/register', data=user)
+        response = self.client().post('/api/v1/auth/register', data=json.dumps(self.user), content_type="application/json")
+        print(response.data)
         self.assertEqual(response.status_code, 201)
-        self.assertIn('James', str(response.data)) 
+        self.assertIn('Peter', str(response.data)) 
+        self.assertTrue(response.content_type == 'application/json')
+
+    def test_user_registration_fails_if_content_type_not_json(self):
+        """Test the content type is application/json"""
+        
 
     def get_token(self):
         """Logs the user in to generate a token for protected routes"""
+        user = {'Username':'James', 'Email':'J@ho.com', 
+        'Password':'pass123','Confirm Password':'pass123'}        
         logins = {
-            "Username":"Peter",
-            "Password":"pass123"
+               "Username":"James",
+               "Password":"pass123"
         }
-        self.client().post('/api/v1/auth/register', data=self.user)
+        self.client().post('/api/v1/auth/register', data=user)
         response = self.client().post('/api/v1/auth/login', data=logins)
         token = json.loads(response.data.decode('UTF-8'))
         return token.get('token')
 
     def test_login(self):
-        """Test api can login successfuly registered user"""
-        token = self.get_token()        
+        """Test api can login successfuly registered user"""      
         user = {'Username':'Lianca', 'Email':'pndungu54@gmail.com', \
         'Password':'pass123','Confirm Password':'pass123'}
         response = self.client().post('/api/v1/auth/register', data=user)
@@ -98,13 +111,21 @@ class TestApi(unittest.TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_logout(self):
-        """Test api can log user out"""
-        token = self.get_token()               
+        """Test api can log user out"""             
         user = {'Username':'Kim', 'Email':'pndungu54@gmail.com', \
         'Password':'pass123','Confirm Password':'pass123'}
+        logins = {
+            "Username":"Kim",
+            "Password":"pass123"
+        }
         response = self.client().post('/api/v1/auth/register', data=user)
         self.assertEqual(response.status_code, 201)
-        self.client().post('/api/v1/auth/logout', headers={'x-access-token': token})
+        response = self.client().post('/api/v1/auth/login', data=logins)
+        encoded_token = json.loads(response.data.decode('UTF-8'))
+        token = encoded_token.get('token')
+
+        result = self.client().post('/api/v1/auth/logout', headers={'x-access-token': token})
+        self.assertIn('Logged out', str(result.data))
         response = self.client().post('/api/v1/businesses', \
         data=self.mock_business, headers={'x-access-token': token})
         self.assertEqual(response.status_code, 401)
@@ -112,18 +133,14 @@ class TestApi(unittest.TestCase):
 
     def test_reset_password(self):
         """Test api can change user password"""
-        token = self.get_token()        
-        user = {'Username':'Ciru', 'Email':'pndungu54@gmail.com', \
-        'Password':'pass123','Confirm Password':'pass123'}
-        response = self.client().post('/api/v1/auth/register', data=user)
-        self.assertEqual(response.status_code, 201)        
-        logins = {
+        change_logins = {
             "Username":"Peter",
             "Previous Password":"pass123",
             "New Password":"pass456"            
-        }
-        print('>>>>>>>>>>>',response.data)
-        result = self.client().post('/api/v1/auth/reset-password', data=logins, headers={'x-access-token': token})
+        }          
+        token = self.get_token()        
+        result = self.client().post('/api/v1/auth/reset-password', 
+        data=change_logins, headers={'x-access-token': token})
         self.assertEqual(result.status_code, 200)
 
     def test_create_business(self):
@@ -136,10 +153,14 @@ class TestApi(unittest.TestCase):
 
     def test_update_business(self):
         """Test api can update a business"""
-        token = self.get_token()       
-        response = self.client().post('/api/v1/businesses', data=self.mock_business, headers={'x-access-token': token})
-        self.assertEqual(response.status_code, 201)      
-        response_value = self.client().put('/api/v1/businesses/1', data = {"Location": "Nyeri"}, headers={'x-access-token': token})
+        token = self.get_token()
+        print(token)
+        response = self.client().post('/api/v1/businesses', \
+        data=self.mock_business, headers={'x-access-token': token})
+        print('&&&&&', response.data)        
+        self.assertEqual(response.status_code, 201) 
+        response_value = self.client().put('/api/v1/businesses/1', data = {"Location": "Nyeri"}, 
+        headers={'x-access-token': token})
         self.assertEqual(response_value.status_code, 200)
         result = self.client().get('/api/v1/businesses/1', headers={'x-access-token': token})
         self.assertIn('Nyeri', str(result.data))

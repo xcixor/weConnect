@@ -44,6 +44,31 @@ def register_user():
     else:
         return bad_request("Some data fields are missing")
 
+def auth_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        """
+        Wrapper to check user authorization
+        """
+        # verify token
+        token = None
+        #check if x-access-token which is used to store the token is 
+        # in headers
+        if 'x-access-token' in request.headers:
+            token = request.headers['x-access-token']
+        if not token:
+            return unauthorized('Token missing')
+        try:
+            data = jwt.decode(token, current_app.config.get('SECRET_KEY'))
+            current_user = User.get_user(users_list, data['id'])
+        except:
+            return unauthorized('Token is invalid')
+        if token in black_list:
+            return unauthorized('You need to login!')
+
+        return f(current_user, *args, **kwargs)
+    return decorated
+
 @api.route('/auth/login', methods=['POST'])
 def login():
     """Log a user into their account"""
@@ -69,31 +94,6 @@ def login():
             return forbidden("Invalid username/password combination")
     else:
         return bad_request("Please provide all the fields")
-
-def auth_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        """
-        Wrapper to check user authorization
-        """
-        # verify token
-        token = None
-        #check if x-access-token which is used to store the token is 
-        # in headers
-        if 'x-access-token' in request.headers:
-            token = request.headers['x-access-token']
-        if not token:
-            return unauthorized('Token missing')
-        try:
-            data = jwt.decode(token, current_app.config.get('SECRET_KEY'))
-            current_user = User.get_user(users_list, data['id'])
-        except:
-            return unauthorized('Token is invalid')
-        if token in black_list:
-            return unauthorized('You need to login!')
-
-        return f(current_user, *args, **kwargs)
-    return decorated
 
 @api.route('/auth/reset-password', methods=['POST'])
 @auth_required
@@ -124,8 +124,6 @@ def log_out(current_user):
     """
     Logs a user from their account
     """
-    if not current_user:
-        return unauthorized('You are not allowed to perform this action')
     token = request.headers['x-access-token']
     black_list.append(token)
     response = jsonify({
@@ -157,7 +155,7 @@ def create_business(current_user):
         else:
             bad_request(status)
     else:
-        return forbidden('Required fields are missing')
+        return bad_request('Required fields are missing')
 @api.route('/businesses', methods=['GET'])
 def retrieve_businesses():
     """
