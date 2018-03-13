@@ -58,14 +58,13 @@ def auth_required(f):
             token = request.headers['x-access-token']
         if not token:
             return unauthorized('Token missing')
+        if token in black_list:
+            return unauthorized('You need to login!')
         try:
             data = jwt.decode(token, current_app.config.get('SECRET_KEY'))
             current_user = User.get_user(users_list, data['id'])
         except:
             return unauthorized('Token is invalid')
-        if token in black_list:
-            return unauthorized('You need to login!')
-
         return f(current_user, *args, **kwargs)
     return decorated
 
