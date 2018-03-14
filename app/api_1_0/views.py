@@ -180,14 +180,13 @@ def manipulate_business(current_user, bid, **kwargs):
     #get business by id
     business_found = Business.get_business_by_id(business_list, bid)
     if not business_found:
-        return not_found('That business was not found in our server please \
-        check again later')
+        return not_found('That business was not found in our server please check again later')
     business = Business(business_found['Name'], business_found['Description'], 
     business_found['Category'], business_found['Location'], business_found['Address'], business_found['Owner'])
     if request.method == 'DELETE':
         Business.delete_business(business_list, bid)
         return{
-            'Message': "business {} has been successfully \
+            'Message': "business {} has been successfully\
             deleted".format(business_found['Name'])
         }, 200
     elif request.method == 'GET':
@@ -201,7 +200,6 @@ def manipulate_business(current_user, bid, **kwargs):
         category = str(request.data.get('Category', ''))
         location = str(request.data.get('Location', ''))
         address = str(request.data.get('Address', ''))
-        
         keys = {}
         if name:
             keys['Name'] = name
@@ -215,7 +213,7 @@ def manipulate_business(current_user, bid, **kwargs):
             keys['Address'] = address
         for key, value in keys.items():
             kwargs = {key:value}            
-        business.edit_business(business_list, **kwargs)  
+            business.edit_business(business_list, **kwargs)  
         response = jsonify({"message":"Business edited successfuly"})
         response.status_code = 200
         return response
