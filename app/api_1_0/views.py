@@ -236,9 +236,9 @@ def business_reviews(bid):
         name = str(request.data.get('Email', ''))
         comment = str(request.data.get('Comment', ''))
         if name and comment:
-            business.write_review(business_list, comment, name)
+            status = business.write_review(business_list, comment, name)
             response = jsonify({
-                "message":"success"
+                "message":status['message']
             })
             response.status_code = 200
             return response

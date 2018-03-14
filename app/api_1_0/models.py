@@ -188,7 +188,7 @@ class Review(object):
         self.description = description
         self.owner = owner
         
-    def create_review(self, reviews):
+    def create_review(self):
         """Adds a review to a reviews list
 
         Args:
@@ -201,8 +201,7 @@ class Review(object):
         """
         # Review.count += 1
         review = {'Comment':self.description, 'Owner':self.owner}
-        reviews.append(review)
-        return {'message':'Review written successfuly'}
+        return review
 
 class Business(object):
     """Defines a business
@@ -420,9 +419,10 @@ class Business(object):
         """
         update_business = self.find_business(business_list)
         if update_business:
-            review = {'Comment':comment, 'User':owner}
-            update_business['Reviews'].append(review)
-            return 'Review written successfuly'
+            review = Review(comment, owner)
+            created_review = review.create_review()
+            update_business['Reviews'].append(created_review)
+            return {'message': 'Review written sucessfuly'}            
 
 
     def get_all_reviews(self):
