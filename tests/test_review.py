@@ -23,4 +23,5 @@ class TestReviewCase(unittest.TestCase):
     def test_create_review(self):
         """Test app can create review"""
         response = self.review.create_review(self.reviews)
-        self.assertEqual(response['message'], 'Review written successfuly')
+        self.assertEqual(response, {'Id':1, 'Comment':'I didn\'t like your place',
+        'Owner':'ptah'})

@@ -226,7 +226,8 @@ class TestApi(unittest.TestCase):
         response = self.client().post('/api/v1/businesses/1/reviews', \
         data=self.mock_review)
         self.assertEqual(response.status_code, 200)
-        result =  self.client().delete('api/v1/businesses/1/reviews/1')
+        result =  self.client().delete('api/v1/businesses/1/reviews/1', 
+        headers={'x-access-token': token})
         self.assertEqual(result.status_code, 200)
 
     

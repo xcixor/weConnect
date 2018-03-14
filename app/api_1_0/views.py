@@ -254,8 +254,25 @@ def business_reviews(bid):
             response.status_code = 200
             return response
         else:
-            response = jsonify({
-                "message":"No reviews for this business"
-            })
-            response.status_code = 404
-            return response
+            return not_found('No reviews for this business')
+
+
+@api.route('/businesses/<int:bid>/reviews/<int:rid>', methods=['DELETE'])
+@auth_required
+def delete_business_review(current_user,bid, rid):
+    """
+    Provides logic to write reviews and retrieve a businesses reviews
+    """
+    business_found = Business.get_business_by_id(business_list, bid)
+    if not business_found:
+        return not_found('That business was not found in our server please \
+    check again later') 
+    business = Business(business_found['Name'], business_found['Description'], 
+    business_found['Category'], business_found['Location'], 
+    business_found['Address'], business_found['Owner'])
+    status  = business.delete_review(business_list, rid)
+    response = jsonify({
+        'message':status['message']
+    })
+    response.status_code = 200
+    return response
