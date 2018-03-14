@@ -175,6 +175,7 @@ class Review(object):
 
     create_review(), delete_review(), validate_comment()
     """
+    count = 0
 
     def __init__(self, description, owner):
         """Initializes a review object
@@ -188,7 +189,7 @@ class Review(object):
         self.description = description
         self.owner = owner
         
-    def create_review(self):
+    def create_review(self, reviews_list):
         """Adds a review to a reviews list
 
         Args:
@@ -200,8 +201,31 @@ class Review(object):
         message: to display creation status         
         """
         # Review.count += 1
-        review = {'Comment':self.description, 'Owner':self.owner}
+        review_id = self.generate_id(reviews_list)
+        review = {'Id':review_id, 'Comment':self.description, 'Owner':self.owner}
         return review
+
+    def generate_id(self, reviews_list, review_id=0):
+        
+        """Generates a review id to uniquely identify a review
+
+        Args:
+            {
+                reviews_list(list) - where other reviewses have been stored,
+                review_id(int) - an integer initialized to zero at the beginining of execution
+            }
+        
+
+        returns:
+        review_id: a unique identifier for the review
+        """
+        if review_id == 0:
+            review_id = len(reviews_list) + 1
+        for review in reviews_list:
+            if review['Id'] == review_id:
+                review_id += 1
+                self.generate_id(reviews_list, review_id)
+        return review_id
 
 class Business(object):
     """Defines a business
@@ -420,9 +444,23 @@ class Business(object):
         update_business = self.find_business(business_list)
         if update_business:
             review = Review(comment, owner)
-            created_review = review.create_review()
+            created_review = review.create_review(update_business['Reviews'])
             update_business['Reviews'].append(created_review)
-            return {'message': 'Review written sucessfuly'}            
+            return {'message': 'Review written successfuly'} 
+
+    def delete_review(self, business_list, rid):
+        """Deletes a review made for the business"""
+        update_business = self.find_business(business_list)
+        if update_business:
+            print(update_business)
+            review_todelete = [review for review in update_business['Reviews'] if \
+            review['Id'] == rid] 
+            print(review_todelete)       
+            if review_todelete:
+                update_business['Reviews'].remove(review_todelete[0])
+                return {'message':'Review deleted successfuly'}
+            else:
+                return {'message':'That review cannot be found'}
 
 
     def get_all_reviews(self):

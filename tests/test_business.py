@@ -20,6 +20,7 @@ class TestBusinessCase(unittest.TestCase):
         test_find_businesses_by_location()
         test_write_review()
         test_get_all_reviews()
+        test_delete_review()
     """
     def setUp(self):
         self.comments = []
@@ -28,7 +29,7 @@ class TestBusinessCase(unittest.TestCase):
         'pass123', 'pass123')        
         self.mock_business = Business("James Barber", "We sell bananas", \
         "fruit vendors", "Kawangware", "1234-Kawangware", self.success_user.name)
-        # self.mock_business.create_business(self.business_list)
+        
 
     def tearDown(self):        
         del self.mock_business
@@ -94,17 +95,16 @@ class TestBusinessCase(unittest.TestCase):
         self.mock_business.create_business(self.business_list)
         response = self.mock_business.write_review(self.business_list, 'Loved the place', 
         self.success_user.name)
-        self.assertEqual(response, 'Review written successfuly')
+        self.assertEqual(response['message'], 'Review written successfuly')
 
     def test_delete_review(self):
         """Test user can delete a business review"""
         self.mock_business.create_business(self.business_list)
         response = self.mock_business.write_review(self.business_list, 'Loved the place', 
         self.success_user.name)
-        self.assertEqual(response, 'Review written successfuly')
-        result = self.mock_business.delete_review(self, 1)
-        self.assertEqual(response['message'], 'Review deleted successfuly')
-
+        self.assertEqual(response['message'], 'Review written successfuly')
+        result = self.mock_business.delete_review(self.business_list, 1)
+        self.assertEqual(result['message'], 'Review deleted successfuly')
 
     def test_get_all_reviews(self):
         """Test app can get all reviews for a particular business"""
