@@ -96,6 +96,16 @@ class TestBusinessCase(unittest.TestCase):
         self.success_user.name)
         self.assertEqual(response, 'Review written successfuly')
 
+    def test_delete_review(self):
+        """Test user can delete a business review"""
+        self.mock_business.create_business(self.business_list)
+        response = self.mock_business.write_review(self.business_list, 'Loved the place', 
+        self.success_user.name)
+        self.assertEqual(response, 'Review written successfuly')
+        result = self.mock_business.delete_review(self, 1)
+        self.assertEqual(response['message'], 'Review deleted successfuly')
+
+
     def test_get_all_reviews(self):
         """Test app can get all reviews for a particular business"""
         self.mock_business.create_business(self.business_list)        
