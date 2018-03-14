@@ -34,18 +34,18 @@
         (myvenv) $ nosetests tests/
 
 ## API endpoints
-|Resource urls                                 | Method     | Description               | Requires token  |
-|----------------------------------------------|------------|---------------------------|-----------------|
-| /api/auth/register                           |   POST     | Register a user           |    FALSE        |
-| /api/auth/login                              |   POST     | Login user                |    FALSE        |
-| /api/auth/reset-password                     |   POST     | Rest user password        |    TRUE         |
-| /api/businesses                              |   POST     | Create business           |    TRUE         |
-| /api/businesses/&lt;business_id&gt;          |   PUT      | Update business profile   |    TRUE         |
-| /api/businesses/&lt;business_id&gt;          |   DELETE   | Remove a business         |    TRUE         |
-| /api/businesses                              |   GET      | Retrieve businesses       |    FALSE        |
-| /api/businesses/&lt;business_id&gt;          |   GET      | Retrieve a business       |    TRUE         |
-| /api/businesses/&lt;business_id&gt;/reviews  |   POST     | Add review for a business |    FALSE        |
-| /api/businesses/&lt;business_id&gt;/reviews  |   GET      | Retrieve business reviews |    FALSE        |   
+|Resource urls                                    | Method     | Description               | Requires token  |
+|-------------------------------------------------|------------|---------------------------|-----------------|
+| /api/v1/auth/register                           |   POST     | Register a user           |    FALSE        |
+| /api/v1/auth/login                              |   POST     | Login user                |    FALSE        |
+| /api/v1/auth/reset-password                     |   POST     | Rest user password        |    TRUE         |
+| /api/v1/businesses                              |   POST     | Create business           |    TRUE         |
+| /api/v1/businesses/&lt;business_id&gt;          |   PUT      | Update business profile   |    TRUE         |
+| /api/v1/businesses/&lt;business_id&gt;          |   DELETE   | Remove a business         |    TRUE         |
+| /api/v1/businesses                              |   GET      | Retrieve businesses       |    FALSE        |
+| /api/v1/businesses/&lt;business_id&gt;          |   GET      | Retrieve a business       |    TRUE         |
+| /api/v1/businesses/&lt;business_id&gt;/reviews  |   POST     | Add review for a business |    FALSE        |
+| /api/v1/businesses/&lt;business_id&gt;/reviews  |   GET      | Retrieve business reviews |    FALSE        |   
 
 ## Documentation
 The documentation for the api can found [here](https://weconnect5.docs.apiary.io/#)
@@ -57,7 +57,8 @@ The documentation for the api can found [here](https://weconnect5.docs.apiary.io
 [Uml](/designs/uml.png)
 
 # Deployment
-This app is hosted at github pages and you can access it
+The app is hosted at heroku
+The fronted is demonstrated at github pages and you can access it
 via this [link](https://xcixor.github.io/weConnect/)
 
 # Built with
