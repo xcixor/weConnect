@@ -218,5 +218,16 @@ class TestApi(unittest.TestCase):
         result = self.client().get('/api/v1/businesses/1/reviews')
         self.assertIn('Great services', str(result.data))
 
+    def test_delete_review(self):
+        token = self.get_token()        
+        response = self.client().post('/api/v1/businesses', \
+        data=self.mock_business, headers={'x-access-token': token})
+        self.assertEqual(response.status_code, 201)
+        response = self.client().post('/api/v1/businesses/1/reviews', \
+        data=self.mock_review)
+        self.assertEqual(response.status_code, 200)
+        result =  self.client().delete('api/v1/businesses/1/reviews/1')
+        self.assertEqual(result.status_code, 200)
+
     
     
