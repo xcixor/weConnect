@@ -4,8 +4,9 @@
 
 ### we_connect
     This platform provides business owners a means to present their
-    businesses to their customers. Customers can in turn comment
+    businesses to their customers and other businessmen. Customers can in turn comment
     about their experience on the services offered by the business.
+
 
 ### Prerequisites
     You should have the following software installed
@@ -13,7 +14,7 @@
         preferred virtual environment creation tool
 ### Installing
     Clone the project as follows:
-    On the terminal for linux and mac, type: 
+    On the terminal for linux and mac, type:
         $    git clone git@github.com:xcixor/weConnect.git
     This will download the project onto your machine locally
     After cloning navigate to the root folder and in the terminal create a virtual environment.
@@ -45,7 +46,7 @@
 | /api/v1/businesses                              |   GET      | Retrieve businesses       |    FALSE        |
 | /api/v1/businesses/&lt;business_id&gt;          |   GET      | Retrieve a business       |    TRUE         |
 | /api/v1/businesses/&lt;business_id&gt;/reviews  |   POST     | Add review for a business |    FALSE        |
-| /api/v1/businesses/&lt;business_id&gt;/reviews  |   GET      | Retrieve business reviews |    FALSE        |   
+| /api/v1/businesses/&lt;business_id&gt;/reviews  |   GET      | Retrieve business reviews |    FALSE        |
 
 ## Documentation
 The documentation for the api can found [here](https://weconnect5.docs.apiary.io/#)
@@ -63,7 +64,7 @@ via this [link](https://xcixor.github.io/weConnect/)
 
 # Built with
     FlaskAPI
-    Materialize framework 
+    Materialize framework
 
 # Contributing
     This app was peer reviewed by Patrick Migot, Cosmas28, Clifford254 and Eric Mwenda
@@ -73,4 +74,3 @@ via this [link](https://xcixor.github.io/weConnect/)
 
 # Licences
     None
-
